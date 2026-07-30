@@ -1,15 +1,34 @@
-import newsData from "@/data/news.json";
 import SectionTitle from "@/components/ui/SectionTitle";
 import NewsCard from "@/components/cards/NewsCard";
 import FadeIn from "@/components/ui/FadeIn";
 import { Search } from "lucide-react";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
+import { db } from "@/lib/firebase";
 
 export const metadata = {
   title: "Berita",
   description: "Kumpulan berita dan informasi terbaru seputar desa.",
 };
 
-export default function BeritaPage() {
+async function getNews() {
+  try {
+    const q = query(collection(db, "news"), orderBy("date", "desc"));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    })) as any[];
+  } catch (error) {
+    console.error("Error fetching news:", error);
+    return [];
+  }
+}
+
+export const revalidate = 60; // Revalidate every 60 seconds (ISR)
+
+export default async function BeritaPage() {
+  const newsData = await getNews();
+
   return (
     <div className="pt-24 pb-20">
       <div className="bg-section-bg py-16 mb-16 border-b border-border">

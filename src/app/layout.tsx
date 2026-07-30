@@ -17,7 +17,7 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   // GANTI URL INI DENGAN DOMAIN .my.id ANDA NANTINYA (Contoh yang sudah diisi)
-  metadataBase: new URL("https://desaciputat.my.id"),
+  metadataBase: new URL("https://devzonee.my.id"),
   title: {
     template: "%s | Website Resmi Desa Ciputat",
     default: "Website Resmi Desa Ciputat",

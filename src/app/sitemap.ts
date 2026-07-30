@@ -3,7 +3,7 @@ import { MetadataRoute } from 'next';
 export default function sitemap(): MetadataRoute.Sitemap {
   // GANTI URL INI DENGAN DOMAIN .my.id ANDA NANTINYA
   // GANTI URL INI JIKA NANTI NAMA DOMAINNYA BERBEDA
-  const baseUrl = 'https://desaciputat.my.id';
+  const baseUrl = 'https://devzonee.my.id';
 
   return [
     { url: `${baseUrl}`, lastModified: new Date(), changeFrequency: 'daily', priority: 1 },

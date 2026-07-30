@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
   // GANTI URL INI JIKA NANTI NAMA DOMAINNYA BERBEDA
-  const baseUrl = 'https://desaciputat.my.id';
+  const baseUrl = 'https://devzonee.my.id';
 
   return {
     rules: {

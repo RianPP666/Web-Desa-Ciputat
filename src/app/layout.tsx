@@ -16,19 +16,28 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
+  // GANTI URL INI DENGAN DOMAIN .my.id ANDA NANTINYA (Contoh yang sudah diisi)
+  metadataBase: new URL("https://desaciputat.my.id"),
   title: {
-    template: "%s | Website Informasi Desa",
-    default: "Website Informasi Desa",
+    template: "%s | Website Resmi Desa Ciputat",
+    default: "Website Resmi Desa Ciputat",
   },
-  description: "Portal resmi informasi, layanan, dan potensi Desa.",
+  description: "Portal resmi informasi, layanan, dan potensi Desa Ciputat, Kecamatan Ciawigebang, Kabupaten Kuningan, Jawa Barat.",
+  keywords: ["desa ciputat", "ciawigebang", "kuningan", "pemerintahan desa", "informasi desa", "layanan masyarakat", "potensi desa"],
+  authors: [{ name: "Pemerintah Desa Ciputat" }],
   openGraph: {
-    title: "Website Informasi Desa",
-    description: "Portal resmi informasi, layanan, dan potensi Desa.",
-    url: "https://desamakmur.go.id",
-    siteName: "Desa Makmur",
+    title: "Website Resmi Desa Ciputat",
+    description: "Portal resmi informasi, layanan, dan potensi Desa Ciputat, Kecamatan Ciawigebang, Kabupaten Kuningan, Jawa Barat.",
+    url: "/",
+    siteName: "Pemerintah Desa Ciputat",
     locale: "id_ID",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Website Resmi Desa Ciputat",
+    description: "Portal resmi informasi, layanan, dan potensi Desa Ciputat, Kecamatan Ciawigebang, Kabupaten Kuningan.",
+  }
 };
 
 export default function RootLayout({

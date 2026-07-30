@@ -1,18 +1,18 @@
 {
-  "villageName": "Desa Makmur",
+  "villageName": "Desa Ciputat",
   "tagline": "Membangun Desa yang Mandiri, Sejahtera, dan Berbudaya",
   "contact": {
-    "address": "Jl. Raya Makmur No. 1, Kecamatan Sejahtera, Kabupaten Gemilang 12345",
+    "address": "Kantor Kepala Desa Ciputat, Kecamatan Ciawigebang, Kabupaten Kuningan, Jawa Barat",
     "phone": "+62 812 3456 7890",
     "whatsapp": "+62 812 3456 7890",
-    "email": "kontak@desamakmur.go.id",
+    "email": "kontak@desaciputat.my.id",
     "officeHours": "Senin - Jumat: 08.00 - 15.00 WIB"
   },
   "socialMedia": {
-    "facebook": "https://facebook.com/desamakmur",
-    "instagram": "https://instagram.com/desamakmur",
-    "twitter": "https://twitter.com/desamakmur",
-    "youtube": "https://youtube.com/desamakmur"
+    "facebook": "https://facebook.com/",
+    "instagram": "https://instagram.com/",
+    "twitter": "https://twitter.com/",
+    "youtube": "https://youtube.com/"
   },
   "stats": {
     "population": "3,450",

@@ -1,0 +1,29 @@
+[
+  {
+    "id": "1",
+    "title": "Musyawarah Perencanaan Pembangunan Desa (Musrenbangdes)",
+    "date": "2024-04-10",
+    "time": "09:00 - 12:00 WIB",
+    "location": "Balai Desa Makmur",
+    "status": "Upcoming",
+    "description": "Pembahasan rencana pembangunan desa untuk tahun anggaran 2025."
+  },
+  {
+    "id": "2",
+    "title": "Posyandu Balita dan Lansia Terpadu",
+    "date": "2024-04-15",
+    "time": "08:00 - 11:00 WIB",
+    "location": "Puskesdes Makmur",
+    "status": "Upcoming",
+    "description": "Pemeriksaan kesehatan rutin, penimbangan balita, dan pemberian makanan tambahan."
+  },
+  {
+    "id": "3",
+    "title": "Lomba Desa Bersih dan Sehat Tingkat Kecamatan",
+    "date": "2024-03-20",
+    "time": "08:00 - Selesai",
+    "location": "Seluruh Wilayah Desa Makmur",
+    "status": "Past",
+    "description": "Penilaian lomba desa bersih tingkat kecamatan. Desa Makmur berhasil meraih juara 2."
+  }
+]

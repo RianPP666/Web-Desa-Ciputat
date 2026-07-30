@@ -1,0 +1,25 @@
+{
+  "villageName": "Desa Makmur",
+  "tagline": "Membangun Desa yang Mandiri, Sejahtera, dan Berbudaya",
+  "contact": {
+    "address": "Jl. Raya Makmur No. 1, Kecamatan Sejahtera, Kabupaten Gemilang 12345",
+    "phone": "+62 812 3456 7890",
+    "whatsapp": "+62 812 3456 7890",
+    "email": "kontak@desamakmur.go.id",
+    "officeHours": "Senin - Jumat: 08.00 - 15.00 WIB"
+  },
+  "socialMedia": {
+    "facebook": "https://facebook.com/desamakmur",
+    "instagram": "https://instagram.com/desamakmur",
+    "twitter": "https://twitter.com/desamakmur",
+    "youtube": "https://youtube.com/desamakmur"
+  },
+  "stats": {
+    "population": "3,450",
+    "rt": "12",
+    "rw": "4",
+    "dusun": "3",
+    "area": "450 Ha"
+  },
+  "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126938.83492806542!2d106.7441113942004!3d-6.229746473187178!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e945e34b9d%3A0x5371bf0fdad786a2!2sJakarta%2C%20Daerah%20Khusus%20Ibukota%20Jakarta!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid"
+}

@@ -1,0 +1,30 @@
+[
+  {
+    "id": "1",
+    "title": "Panen Raya Padi",
+    "category": "Pertanian",
+    "type": "image",
+    "url": "https://images.unsplash.com/photo-1595186001099-0e86b856b3e3?auto=format&fit=crop&q=80&w=800&h=600"
+  },
+  {
+    "id": "2",
+    "title": "Festival Budaya Desa",
+    "category": "Budaya",
+    "type": "image",
+    "url": "https://images.unsplash.com/photo-1604084126344-933e46c757c6?auto=format&fit=crop&q=80&w=800&h=600"
+  },
+  {
+    "id": "3",
+    "title": "Peresmian Jembatan Gantung",
+    "category": "Infrastruktur",
+    "type": "image",
+    "url": "https://images.unsplash.com/photo-1498084393753-b411b2d26b34?auto=format&fit=crop&q=80&w=800&h=600"
+  },
+  {
+    "id": "4",
+    "title": "Kegiatan Posyandu",
+    "category": "Kesehatan",
+    "type": "image",
+    "url": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=800&h=600"
+  }
+]

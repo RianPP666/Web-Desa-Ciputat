@@ -1,0 +1,35 @@
+{
+  "history": "Desa Makmur didirikan pada tahun 1945 oleh sekelompok petani yang bermigrasi dari daerah pegunungan. Desa ini awalnya merupakan sebuah pemukiman kecil yang dikelilingi oleh hutan bambu. Seiring waktu, Desa Makmur berkembang menjadi desa pertanian yang maju berkat gotong royong dan semangat kemandirian warganya.",
+  "vision": "Terwujudnya Desa Makmur yang Mandiri, Sejahtera, dan Berbudaya Berlandaskan Semangat Gotong Royong.",
+  "mission": [
+    "Meningkatkan kualitas sumber daya manusia melalui pendidikan dan kesehatan.",
+    "Mengembangkan potensi ekonomi desa yang berbasis kerakyatan dan kearifan lokal.",
+    "Membangun infrastruktur desa yang memadai dan ramah lingkungan.",
+    "Meningkatkan kualitas pelayanan publik yang transparan dan akuntabel.",
+    "Melestarikan nilai-nilai budaya dan kearifan lokal."
+  ],
+  "headGreeting": "Selamat datang di website resmi Desa Makmur. Kami berharap website ini dapat menjadi media informasi dan komunikasi yang efektif antara pemerintah desa dengan masyarakat, serta sebagai jendela informasi bagi dunia luar untuk mengenal lebih dekat potensi dan pesona Desa Makmur.",
+  "structure": [
+    {
+      "name": "Budi Santoso",
+      "position": "Kepala Desa",
+      "image": "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=200&h=200"
+    },
+    {
+      "name": "Siti Rahmawati",
+      "position": "Sekretaris Desa",
+      "image": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200&h=200"
+    },
+    {
+      "name": "Ahmad Yani",
+      "position": "Kasi Pemerintahan",
+      "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=200&h=200"
+    }
+  ],
+  "demographics": {
+    "total": 3450,
+    "male": 1750,
+    "female": 1700,
+    "families": 850
+  }
+}

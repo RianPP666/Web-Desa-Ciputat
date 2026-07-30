@@ -13,7 +13,7 @@ export default function Footer() {
           <div className="flex flex-col gap-4">
             <Link href="/" className="flex items-center gap-3">
               <div className="w-12 h-12 bg-white text-primary rounded-full flex items-center justify-center font-heading font-bold text-2xl">
-                DM
+                DC
               </div>
               <div className="flex flex-col">
                 <span className="font-heading font-bold text-xl text-white leading-tight">

@@ -6,6 +6,8 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
+import settingsData from "@/data/settings.json";
+
 const NAV_LINKS = [
   { name: "Beranda", path: "/" },
   { name: "Profil Desa", path: "/profil" },
@@ -47,13 +49,13 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <div className="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-heading font-bold text-xl">
-              DM
+              DC
             </div>
             <div className="flex flex-col">
               <span className="font-heading font-bold text-lg text-foreground leading-tight">
-                Desa Makmur
+                {settingsData.villageName}
               </span>
-              <span className="text-xs text-muted">Kab. Gemilang</span>
+              <span className="text-xs text-muted">Kec. Ciawigebang</span>
             </div>
           </Link>
 

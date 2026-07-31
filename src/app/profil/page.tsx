@@ -52,10 +52,10 @@ export default function ProfilPage() {
           </div>
         </section>
 
-        {/* Sejarah */}
+        {/* Deskripsi Singkat */}
         <section className="mb-24">
           <FadeIn>
-            <SectionTitle title="Sejarah Desa" />
+            <SectionTitle title="Deskripsi Singkat" />
             <div className="bg-white p-8 rounded-2xl border border-border shadow-sm">
               <p className="text-muted leading-relaxed text-lg">
                 {villageProfile.history}

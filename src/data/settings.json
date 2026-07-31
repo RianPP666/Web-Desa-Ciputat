@@ -2,10 +2,9 @@
   "villageName": "Desa Ciputat",
   "tagline": "Membangun Desa yang Mandiri, Sejahtera, dan Berbudaya",
   "contact": {
-    "address": "Kantor Kepala Desa Ciputat, Kecamatan Ciawigebang, Kabupaten Kuningan, Jawa Barat",
-    "phone": "+62 812 3456 7890",
-    "whatsapp": "+62 812 3456 7890",
-    "email": "kontak@devzonee.my.id",
+    "address": "Balai Desa Ciputat, Kecamatan Ciawigebang, Kabupaten Kuningan, Jawa Barat",
+    "phone": "+62 82240202304 / +62 81222151829",
+    "email": "info@desa.kuningankab.go.id",
     "officeHours": "Senin - Jumat: 08.00 - 15.00 WIB"
   },
   "socialMedia": {
@@ -15,11 +14,11 @@
     "youtube": "https://youtube.com/"
   },
   "stats": {
-    "population": "3,450",
-    "rt": "12",
-    "rw": "4",
-    "dusun": "3",
-    "area": "450 Ha"
+    "population": "4,829",
+    "rt": "15",
+    "rw": "5",
+    "dusun": "5",
+    "area": "124,920 Ha"
   },
-  "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126938.83492806542!2d106.7441113942004!3d-6.229746473187178!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e945e34b9d%3A0x5371bf0fdad786a2!2sJakarta%2C%20Daerah%20Khusus%20Ibukota%20Jakarta!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid"
+  "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d247.517041079997!2d108.58197491917139!3d-6.977121898221606!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f122602048b13%3A0x76dcc82cf9b2e7aa!2sBalai%20Desa%20Ciputat!5e0!3m2!1sid!2sid!4v1785455588759!5m2!1sid!2sid"
 }

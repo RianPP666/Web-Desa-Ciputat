@@ -1,14 +1,33 @@
-import eventsData from "@/data/events.json";
 import SectionTitle from "@/components/ui/SectionTitle";
 import ActivityCard from "@/components/cards/ActivityCard";
 import FadeIn from "@/components/ui/FadeIn";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
+import { db } from "@/lib/firebase";
 
 export const metadata = {
   title: "Kegiatan",
   description: "Jadwal kegiatan dan agenda desa.",
 };
 
-export default function KegiatanPage() {
+async function getKegiatan() {
+  try {
+    const q = query(collection(db, "events"), orderBy("date", "desc"));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    })) as any[];
+  } catch (error) {
+    console.error("Error fetching kegiatan:", error);
+    return [];
+  }
+}
+
+export const revalidate = 60; // ISR 60 seconds
+
+export default async function KegiatanPage() {
+  const eventsData = await getKegiatan();
+  
   const upcomingEvents = eventsData.filter((e) => e.status === "Upcoming");
   const pastEvents = eventsData.filter((e) => e.status === "Past");
 

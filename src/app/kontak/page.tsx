@@ -24,78 +24,47 @@ export default function KontakPage() {
       </div>
 
       <div className="container-custom mb-16">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-          <FadeIn className="lg:col-span-1 space-y-6">
-            <h2 className="font-heading text-2xl font-bold text-foreground mb-6">Informasi Kontak</h2>
-            
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                <MapPin size={20} />
+        <div className="max-w-4xl mx-auto">
+          <FadeIn className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="bg-white p-8 rounded-3xl border border-border shadow-sm flex items-start gap-4 hover:shadow-md transition-shadow">
+              <div className="w-14 h-14 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                <MapPin size={24} />
               </div>
               <div>
-                <h3 className="font-semibold text-lg mb-1">Alamat Kantor</h3>
-                <p className="text-muted text-sm leading-relaxed">{settingsData.contact.address}</p>
+                <h3 className="font-heading font-semibold text-xl mb-2 text-foreground">Alamat Kantor</h3>
+                <p className="text-muted leading-relaxed">{settingsData.contact.address}</p>
               </div>
             </div>
 
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                <Phone size={20} />
+            <div className="bg-white p-8 rounded-3xl border border-border shadow-sm flex items-start gap-4 hover:shadow-md transition-shadow">
+              <div className="w-14 h-14 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                <Phone size={24} />
               </div>
               <div>
-                <h3 className="font-semibold text-lg mb-1">Telepon / WhatsApp</h3>
-                <p className="text-muted text-sm">{settingsData.contact.phone}</p>
-                <p className="text-muted text-sm">{settingsData.contact.whatsapp}</p>
+                <h3 className="font-heading font-semibold text-xl mb-2 text-foreground">Telepon / WhatsApp</h3>
+                <p className="text-muted">{settingsData.contact.phone}</p>
+                <p className="text-muted">{settingsData.contact.whatsapp}</p>
               </div>
             </div>
 
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                <Mail size={20} />
+            <div className="bg-white p-8 rounded-3xl border border-border shadow-sm flex items-start gap-4 hover:shadow-md transition-shadow">
+              <div className="w-14 h-14 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                <Mail size={24} />
               </div>
               <div>
-                <h3 className="font-semibold text-lg mb-1">Email</h3>
-                <p className="text-muted text-sm">{settingsData.contact.email}</p>
+                <h3 className="font-heading font-semibold text-xl mb-2 text-foreground">Email</h3>
+                <p className="text-muted">{settingsData.contact.email}</p>
               </div>
             </div>
 
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                <Clock size={20} />
+            <div className="bg-white p-8 rounded-3xl border border-border shadow-sm flex items-start gap-4 hover:shadow-md transition-shadow">
+              <div className="w-14 h-14 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                <Clock size={24} />
               </div>
               <div>
-                <h3 className="font-semibold text-lg mb-1">Jam Operasional</h3>
-                <p className="text-muted text-sm">{settingsData.contact.officeHours}</p>
+                <h3 className="font-heading font-semibold text-xl mb-2 text-foreground">Jam Operasional</h3>
+                <p className="text-muted">{settingsData.contact.officeHours}</p>
               </div>
-            </div>
-          </FadeIn>
-
-          <FadeIn className="lg:col-span-2" delay={0.2}>
-            <div className="bg-white p-8 rounded-3xl border border-border shadow-sm h-full">
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-6">Kirim Pesan</h2>
-              <form className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
-                    <input type="text" className="w-full px-4 py-3 rounded-xl border border-border bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all" placeholder="Masukkan nama Anda" />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Email / No. HP</label>
-                    <input type="text" className="w-full px-4 py-3 rounded-xl border border-border bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all" placeholder="Email atau nomor yang bisa dihubungi" />
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Subjek</label>
-                  <input type="text" className="w-full px-4 py-3 rounded-xl border border-border bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all" placeholder="Topik pesan" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Pesan</label>
-                  <textarea rows={4} className="w-full px-4 py-3 rounded-xl border border-border bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all" placeholder="Tuliskan pesan Anda di sini..."></textarea>
-                </div>
-                <button type="button" className="px-6 py-3 bg-primary text-white rounded-xl font-medium hover:bg-secondary transition-colors w-full md:w-auto">
-                  Kirim Pesan Sekarang
-                </button>
-              </form>
             </div>
           </FadeIn>
         </div>

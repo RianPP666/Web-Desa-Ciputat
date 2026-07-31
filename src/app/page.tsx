@@ -14,10 +14,18 @@ async function getLatestNews() {
   try {
     const q = query(collection(db, "news"), orderBy("date", "desc"), limit(3));
     const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    })) as any[];
+    return querySnapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        title: data.title || "Tanpa Judul",
+        excerpt: data.excerpt || "",
+        date: data.date || new Date().toISOString(),
+        thumbnail: data.image || "https://images.unsplash.com/photo-1595186001099-0e86b856b3e3?auto=format&fit=crop&q=80&w=600&h=400",
+        slug: data.slug || doc.id,
+        category: data.category || "Berita",
+      };
+    }) as any[];
   } catch (error) {
     console.error("Error fetching latest news:", error);
     return [];
@@ -36,8 +44,8 @@ export default async function Home() {
       <section className="relative h-screen min-h-[600px] flex items-center justify-center pt-20">
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1595186001099-0e86b856b3e3?auto=format&fit=crop&q=80&w=2000&h=1200"
-            alt="Pemandangan Desa"
+            src="/hero-desa.jpg"
+            alt="Pemandangan Desa Ciputat"
             fill
             className="object-cover"
             priority

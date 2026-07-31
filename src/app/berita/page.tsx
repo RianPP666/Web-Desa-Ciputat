@@ -14,10 +14,18 @@ async function getNews() {
   try {
     const q = query(collection(db, "news"), orderBy("date", "desc"));
     const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    })) as any[];
+    return querySnapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        title: data.title || "Tanpa Judul",
+        excerpt: data.excerpt || "",
+        date: data.date || new Date().toISOString(),
+        thumbnail: data.image || "https://images.unsplash.com/photo-1595186001099-0e86b856b3e3?auto=format&fit=crop&q=80&w=600&h=400",
+        slug: data.slug || doc.id,
+        category: data.category || "Berita",
+      };
+    }) as any[];
   } catch (error) {
     console.error("Error fetching news:", error);
     return [];

@@ -38,6 +38,10 @@ export default function Navbar() {
     setIsOpen(false);
   }, [pathname]);
 
+  if (pathname.startsWith("/admin")) {
+    return null;
+  }
+
   return (
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${

@@ -3,7 +3,7 @@
 import AuthGuard from "@/components/admin/AuthGuard";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { LayoutDashboard, Newspaper, Image as ImageIcon, LogOut } from "lucide-react";
+import { LayoutDashboard, Newspaper, Image as ImageIcon, LogOut, Calendar } from "lucide-react";
 import { auth } from "@/lib/firebase";
 import { signOut } from "firebase/auth";
 
@@ -45,6 +45,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             >
               <Newspaper size={20} />
               Kelola Berita
+            </Link>
+            <Link 
+              href="/admin/kegiatan" 
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${pathname.startsWith('/admin/kegiatan') ? 'bg-primary/10 text-primary font-medium' : 'text-gray-600 hover:bg-gray-100'}`}
+            >
+              <Calendar size={20} />
+              Kelola Kegiatan
             </Link>
             {/* Add more menus later */}
           </nav>

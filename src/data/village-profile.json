@@ -1,5 +1,5 @@
 {
-  "history": "Desa Ciputat didirikan oleh para sesepuh yang bermigrasi dari daerah pegunungan. Desa ini awalnya merupakan sebuah pemukiman kecil yang dikelilingi oleh area pertanian. Seiring waktu, Desa Ciputat berkembang menjadi desa pertanian yang maju di wilayah Ciawigebang, Kabupaten Kuningan, berkat gotong royong dan semangat kemandirian warganya.",
+  "history": "Desa Ciputat secara administrasi merupakan salah satu desa dalam wilayah kecamatan Ciawigebang Kabupaten Kuningan, dengan batas – batas wilayahnya yaitu sebelah utara berbatasan dengan Desa Ciawigebang, sebelah selatan berbatasan dengan Desa Kapandayan Pajawanlor, sebelah barat berbatasan dengan Desa Pangkalan, sebelah timur berbatasan dengan Desa Geresik. Luas wilayah seluruhnya adalah 124.920 Ha, dan berada pada ketinggian + 176 meter dengan iklim tropis dan secara administratif terdiri dari 05 RW dan 15 RT yang dibagi menjadi 05 Dusun.",
   "vision": "Terwujudnya Desa Ciputat yang Mandiri, Sejahtera, dan Berbudaya Berlandaskan Semangat Gotong Royong.",
   "mission": [
     "Meningkatkan kualitas sumber daya manusia melalui pendidikan dan kesehatan.",
@@ -11,12 +11,12 @@
   "headGreeting": "Selamat datang di website resmi Desa Ciputat. Kami berharap website ini dapat menjadi media informasi dan komunikasi yang efektif antara pemerintah desa dengan masyarakat, serta sebagai jendela informasi bagi dunia luar untuk mengenal lebih dekat potensi dan pesona Desa Ciputat.",
   "structure": [
     {
-      "name": "Budi Santoso",
+      "name": "Idris",
       "position": "Kepala Desa",
-      "image": "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=200&h=200"
+      "image": "/kepala-desa.jpg"
     },
     {
-      "name": "Siti Rahmawati",
+      "name": "Nia Rusnia, SE",
       "position": "Sekretaris Desa",
       "image": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200&h=200"
     },
@@ -27,7 +27,7 @@
     }
   ],
   "demographics": {
-    "total": 3450,
+    "total": 4829,
     "male": 1750,
     "female": 1700,
     "families": 850

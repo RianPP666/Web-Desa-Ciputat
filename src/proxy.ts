@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   // Ambil URL saat ini (contoh: desaciputat.devzonee.my.id atau admin.desaciputat.devzonee.my.id)
   const hostname = request.headers.get('host') || '';
   const url = request.nextUrl.clone();
@@ -21,7 +21,7 @@ export function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 
-// Hanya jalankan middleware ini pada request halaman (bukan pada file statis atau API)
+// Hanya jalankan proxy ini pada request halaman (bukan pada file statis atau API)
 export const config = {
   matcher: [
     /*

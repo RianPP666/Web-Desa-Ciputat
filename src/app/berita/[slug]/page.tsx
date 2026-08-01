@@ -1,7 +1,6 @@
 import { collection, getDocs, query, doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Calendar } from "lucide-react";
 import FadeIn from "@/components/ui/FadeIn";
@@ -98,13 +97,11 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ s
         {news.image && (
           <FadeIn delay={0.2}>
             <div className="relative w-full h-[300px] md:h-[450px] rounded-2xl overflow-hidden mb-10 shadow-lg">
-              <Image
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src={news.image}
                 alt={news.title}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 800px"
-                priority
+                className="w-full h-full object-cover"
               />
             </div>
           </FadeIn>

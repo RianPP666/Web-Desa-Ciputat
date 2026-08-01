@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import Image from "next/image";
 
 interface NewsCardProps {
   title: string;
@@ -22,12 +21,11 @@ export default function NewsCard({ title, excerpt, date, category, thumbnail, sl
   return (
     <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-border group flex flex-col h-full">
       <div className="relative h-56 w-full overflow-hidden">
-        <Image
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
           src={thumbnail}
           alt={title}
-          fill
-          className="object-cover group-hover:scale-105 transition-transform duration-500"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
         <div className="absolute top-4 left-4 bg-primary text-white text-xs font-semibold px-3 py-1 rounded-full">
           {category}

@@ -43,7 +43,6 @@ export default function KontakPage() {
               <div>
                 <h3 className="font-heading font-semibold text-xl mb-2 text-foreground">Telepon / WhatsApp</h3>
                 <p className="text-muted">{settingsData.contact.phone}</p>
-                <p className="text-muted">{settingsData.contact.whatsapp}</p>
               </div>
             </div>
 

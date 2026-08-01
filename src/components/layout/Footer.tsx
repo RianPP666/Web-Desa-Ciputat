@@ -4,6 +4,7 @@ import Link from "next/link";
 import { MapPin, Phone, Mail } from "lucide-react";
 import settingsData from "@/data/settings.json";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -20,8 +21,8 @@ export default function Footer() {
           {/* Brand & Description */}
           <div className="flex flex-col gap-4">
             <Link href="/" className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-white text-primary rounded-full flex items-center justify-center font-heading font-bold text-2xl">
-                DC
+              <div className="w-12 h-12 relative rounded-full overflow-hidden shrink-0">
+                <Image src="/logo-kuningan.jpg" alt="Logo Desa Ciputat" fill className="object-cover" sizes="48px" />
               </div>
               <div className="flex flex-col">
                 <span className="font-heading font-bold text-xl text-white leading-tight">

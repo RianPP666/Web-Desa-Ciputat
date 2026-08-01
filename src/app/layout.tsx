@@ -16,15 +16,18 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  // GANTI URL INI DENGAN DOMAIN .my.id ANDA NANTINYA (Contoh yang sudah diisi)
-  metadataBase: new URL("https://devzonee.my.id"),
+  metadataBase: new URL("https://desaciputat.devzonee.my.id"),
   title: {
     template: "%s | Website Resmi Desa Ciputat",
-    default: "Website Resmi Desa Ciputat",
+    default: "Website Resmi Desa Ciputat | Kec. Ciawigebang, Kab. Kuningan",
   },
   description: "Portal resmi informasi, layanan, dan potensi Desa Ciputat, Kecamatan Ciawigebang, Kabupaten Kuningan, Jawa Barat.",
-  keywords: ["desa ciputat", "ciawigebang", "kuningan", "pemerintahan desa", "informasi desa", "layanan masyarakat", "potensi desa"],
+  keywords: ["desa ciputat", "ciawigebang", "kuningan", "pemerintahan desa", "informasi desa", "layanan masyarakat", "potensi desa", "jawa barat"],
   authors: [{ name: "Pemerintah Desa Ciputat" }],
+  icons: {
+    icon: "/logo-kuningan.jpg",
+    apple: "/logo-kuningan.jpg",
+  },
   openGraph: {
     title: "Website Resmi Desa Ciputat",
     description: "Portal resmi informasi, layanan, dan potensi Desa Ciputat, Kecamatan Ciawigebang, Kabupaten Kuningan, Jawa Barat.",
@@ -32,12 +35,18 @@ export const metadata: Metadata = {
     siteName: "Pemerintah Desa Ciputat",
     locale: "id_ID",
     type: "website",
+    images: ["/logo-kuningan.jpg"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Website Resmi Desa Ciputat",
     description: "Portal resmi informasi, layanan, dan potensi Desa Ciputat, Kecamatan Ciawigebang, Kabupaten Kuningan.",
-  }
+    images: ["/logo-kuningan.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({

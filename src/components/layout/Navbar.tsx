@@ -7,6 +7,7 @@ import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import settingsData from "@/data/settings.json";
+import Image from "next/image";
 
 const NAV_LINKS = [
   { name: "Beranda", path: "/" },
@@ -52,8 +53,8 @@ export default function Navbar() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-heading font-bold text-xl">
-              DC
+            <div className="w-10 h-10 relative rounded-full overflow-hidden shrink-0">
+              <Image src="/logo-kuningan.jpg" alt="Logo Desa Ciputat" fill className="object-cover" sizes="40px" />
             </div>
             <div className="flex flex-col">
               <span className="font-heading font-bold text-lg text-foreground leading-tight">

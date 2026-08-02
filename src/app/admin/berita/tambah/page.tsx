@@ -28,22 +28,26 @@ export default function TambahBerita() {
     }
   };
 
-  const uploadToImgBB = async (file: File) => {
+  const uploadImage = async (file: File) => {
     const formData = new FormData();
-    formData.append("image", file);
+    formData.append("file", file);
+    // Kita gunakan ml_default sesuai dengan yang Anda edit tadi
+    formData.append("upload_preset", "ml_default");
     
-    const apiKey = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
+    const cloudName = "hm7l9lin";
     
-    const response = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
+    const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
       method: "POST",
       body: formData,
     });
     
     const data = await response.json();
-    if (data.success) {
-      return data.data.url;
+    console.log("Upload response:", data);
+    
+    if (data.secure_url) {
+      return data.secure_url;
     }
-    throw new Error("Gagal mengunggah gambar");
+    throw new Error(data.error?.message || "Gagal mengunggah gambar");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -55,7 +59,7 @@ export default function TambahBerita() {
       
       if (imageFile) {
         // Upload image to ImgBB first
-        imageUrl = await uploadToImgBB(imageFile);
+        imageUrl = await uploadImage(imageFile);
       } else {
         alert("Mohon pilih gambar untuk berita ini.");
         setLoading(false);

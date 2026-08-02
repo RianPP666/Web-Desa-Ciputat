@@ -21,7 +21,7 @@ async function getNews() {
         title: data.title || "Tanpa Judul",
         excerpt: data.excerpt || "",
         date: data.date || new Date().toISOString(),
-        thumbnail: data.image || "https://images.unsplash.com/photo-1595186001099-0e86b856b3e3?auto=format&fit=crop&q=80&w=600&h=400",
+        thumbnail: data.image || "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=600&h=400",
         slug: data.slug || doc.id,
         category: data.category || "Berita",
       };

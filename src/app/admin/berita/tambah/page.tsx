@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
@@ -20,6 +20,14 @@ export default function TambahBerita() {
     date: new Date().toISOString().split('T')[0] // YYYY-MM-DD
   });
 
+  useEffect(() => {
+    return () => {
+      if (imagePreview) {
+        URL.revokeObjectURL(imagePreview);
+      }
+    };
+  }, [imagePreview]);
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
@@ -32,9 +40,9 @@ export default function TambahBerita() {
     const formData = new FormData();
     formData.append("file", file);
     // Kita gunakan ml_default sesuai dengan yang Anda edit tadi
-    formData.append("upload_preset", "ml_default");
+    formData.append("upload_preset", process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "ml_default");
     
-    const cloudName = "hm7l9lin";
+    const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "hm7l9lin";
     
     const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
       method: "POST",
@@ -98,8 +106,9 @@ export default function TambahBerita() {
         <form onSubmit={handleSubmit} className="space-y-6">
           
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Judul Berita</label>
+            <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">Judul Berita</label>
             <input
+              id="title"
               type="text"
               required
               value={formData.title}
@@ -110,8 +119,9 @@ export default function TambahBerita() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Tanggal Publikasi</label>
+            <label htmlFor="date" className="block text-sm font-medium text-gray-700 mb-2">Tanggal Publikasi</label>
             <input
+              id="date"
               type="date"
               required
               value={formData.date}
@@ -121,8 +131,9 @@ export default function TambahBerita() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Ringkasan (Excerpt)</label>
+            <label htmlFor="excerpt" className="block text-sm font-medium text-gray-700 mb-2">Ringkasan (Excerpt)</label>
             <textarea
+              id="excerpt"
               required
               rows={2}
               value={formData.excerpt}
@@ -133,7 +144,7 @@ export default function TambahBerita() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Gambar Berita</label>
+            <label htmlFor="image" className="block text-sm font-medium text-gray-700 mb-2">Gambar Berita</label>
             <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-xl relative overflow-hidden group">
               {imagePreview ? (
                 <div className="absolute inset-0 w-full h-full">
@@ -154,6 +165,7 @@ export default function TambahBerita() {
                 </div>
               )}
               <input 
+                id="image"
                 type="file" 
                 accept="image/*" 
                 onChange={handleImageChange}
@@ -164,8 +176,9 @@ export default function TambahBerita() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Isi Berita Lengkap</label>
+            <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-2">Isi Berita Lengkap</label>
             <textarea
+              id="content"
               required
               rows={10}
               value={formData.content}

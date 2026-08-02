@@ -182,6 +182,7 @@ export default async function Home() {
       <section className="relative">
         <div className="h-[400px] w-full bg-gray-200">
           <iframe 
+            title="Peta Lokasi Desa Ciputat"
             src={settingsData.mapEmbedUrl}
             width="100%" 
             height="100%" 

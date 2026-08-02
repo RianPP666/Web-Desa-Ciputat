@@ -11,7 +11,7 @@ export default function SectionTitle({ title, subtitle, centered = false }: Sect
         {title}
       </h2>
       {subtitle && (
-        <p className="text-muted text-lg max-w-2xl mx-auto">
+        <p className={`text-muted text-lg max-w-2xl ${centered ? "mx-auto" : ""}`}>
           {subtitle}
         </p>
       )}

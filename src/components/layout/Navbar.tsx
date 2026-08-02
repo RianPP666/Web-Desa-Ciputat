@@ -87,6 +87,8 @@ export default function Navbar() {
             className="lg:hidden text-foreground p-2"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle Menu"
+            aria-expanded={isOpen}
+            aria-controls="mobile-menu"
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -97,6 +99,9 @@ export default function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            id="mobile-menu"
+            role="navigation"
+            aria-label="Menu navigasi mobile"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}

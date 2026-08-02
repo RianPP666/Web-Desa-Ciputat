@@ -65,11 +65,11 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="text-accent shrink-0" size={18} />
-                <span>{settingsData.contact.phone}</span>
+                <a href="tel:+6282240202304" className="hover:text-accent transition-colors">{settingsData.contact.phone}</a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="text-accent shrink-0" size={18} />
-                <span>{settingsData.contact.email}</span>
+                <a href={`mailto:${settingsData.contact.email}`} className="hover:text-accent transition-colors">{settingsData.contact.email}</a>
               </li>
             </ul>
           </div>
@@ -82,8 +82,8 @@ export default function Footer() {
             &copy; {currentYear} Pemerintah {settingsData.villageName}. Hak Cipta Dilindungi.
           </p>
           <div className="flex items-center gap-6 text-sm text-gray-500">
-            <Link href="/kebijakan-privasi" className="hover:text-white transition-colors">Kebijakan Privasi</Link>
-            <Link href="/syarat-ketentuan" className="hover:text-white transition-colors">Syarat & Ketentuan</Link>
+            <Link href="#" className="hover:text-white transition-colors">Kebijakan Privasi</Link>
+            <Link href="#" className="hover:text-white transition-colors">Syarat & Ketentuan</Link>
           </div>
         </div>
       </div>

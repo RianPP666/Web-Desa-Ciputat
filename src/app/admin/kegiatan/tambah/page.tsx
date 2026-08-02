@@ -58,8 +58,9 @@ export default function TambahKegiatan() {
         <form onSubmit={handleSubmit} className="space-y-6">
           
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Nama Kegiatan</label>
+            <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">Nama Kegiatan</label>
             <input
+              id="title"
               type="text"
               required
               value={formData.title}
@@ -71,8 +72,9 @@ export default function TambahKegiatan() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Tanggal Pelaksanaan</label>
+              <label htmlFor="date" className="block text-sm font-medium text-gray-700 mb-2">Tanggal Pelaksanaan</label>
               <input
+                id="date"
                 type="date"
                 required
                 value={formData.date}
@@ -81,8 +83,9 @@ export default function TambahKegiatan() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Waktu (Jam)</label>
+              <label htmlFor="time" className="block text-sm font-medium text-gray-700 mb-2">Waktu (Jam)</label>
               <input
+                id="time"
                 type="text"
                 required
                 value={formData.time}
@@ -95,8 +98,9 @@ export default function TambahKegiatan() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Lokasi</label>
+              <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-2">Lokasi</label>
               <input
+                id="location"
                 type="text"
                 required
                 value={formData.location}
@@ -106,8 +110,9 @@ export default function TambahKegiatan() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Status Kegiatan</label>
+              <label htmlFor="status" className="block text-sm font-medium text-gray-700 mb-2">Status Kegiatan</label>
               <select
+                id="status"
                 value={formData.status}
                 onChange={(e) => setFormData({...formData, status: e.target.value})}
                 className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all bg-white"
@@ -119,8 +124,9 @@ export default function TambahKegiatan() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Deskripsi Kegiatan</label>
+            <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-2">Deskripsi Kegiatan</label>
             <textarea
+              id="description"
               required
               rows={4}
               value={formData.description}

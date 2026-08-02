@@ -72,6 +72,7 @@ export default function KontakPage() {
       {/* Full Width Map */}
       <div className="w-full h-[500px] bg-gray-200">
         <iframe 
+          title="Peta Lokasi Desa Ciputat"
           src={settingsData.mapEmbedUrl}
           width="100%" 
           height="100%" 

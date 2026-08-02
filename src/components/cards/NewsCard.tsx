@@ -42,6 +42,7 @@ export default function NewsCard({ title, excerpt, date, category, thumbnail, sl
         <Link
           href={`/berita/${slug}`}
           className="inline-flex items-center gap-2 text-primary font-medium hover:text-secondary transition-colors mt-auto"
+          aria-label={`Baca selengkapnya tentang ${title}`}
         >
           Baca Selengkapnya <ArrowRight size={16} />
         </Link>

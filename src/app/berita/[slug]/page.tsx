@@ -4,10 +4,11 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Calendar } from "lucide-react";
 import FadeIn from "@/components/ui/FadeIn";
+import { cache } from "react";
 
 export const revalidate = 60;
 
-async function getNewsDetail(id: string) {
+const getNewsDetail = cache(async (id: string) => {
   try {
     const docRef = doc(db, "news", id);
     const docSnap = await getDoc(docRef);
@@ -17,7 +18,7 @@ async function getNewsDetail(id: string) {
     console.error("Error fetching news detail:", error);
     return null;
   }
-}
+});
 
 export async function generateStaticParams() {
   try {
@@ -35,6 +36,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: news.title,
     description: news.excerpt || news.title,
+    openGraph: {
+      images: news.image ? [news.image] : [],
+    },
   };
 }
 

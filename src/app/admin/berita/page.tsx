@@ -1,41 +1,54 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { collection, getDocs, deleteDoc, doc, orderBy, query } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import Link from "next/link";
 import { Plus, Trash2, Loader2 } from "lucide-react";
 import Image from "next/image";
 
+interface BeritaItem {
+  id: string;
+  title: string;
+  date: string;
+  image?: string;
+  excerpt?: string;
+}
+
 export default function KelolaBerita() {
-  const [berita, setBerita] = useState<any[]>([]);
+  const [berita, setBerita] = useState<BeritaItem[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchBerita();
+  const fetchBerita = useCallback(async (): Promise<BeritaItem[]> => {
+    const q = query(collection(db, "news"), orderBy("date", "desc"));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    })) as BeritaItem[];
   }, []);
 
-  const fetchBerita = async () => {
-    try {
-      const q = query(collection(db, "news"), orderBy("date", "desc"));
-      const querySnapshot = await getDocs(q);
-      const data = querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
-      setBerita(data);
-    } catch (error) {
-      console.error("Error fetching berita:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  useEffect(() => {
+    let active = true;
+    fetchBerita()
+      .then(data => {
+        if (active) setBerita(data);
+      })
+      .catch(error => console.error("Error fetching berita:", error))
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => {
+      active = false;
+    };
+  }, [fetchBerita]);
 
   const handleDelete = async (id: string) => {
     if (window.confirm("Apakah Anda yakin ingin menghapus berita ini?")) {
       try {
         await deleteDoc(doc(db, "news", id));
-        fetchBerita(); // Refresh data
+        const data = await fetchBerita();
+        setBerita(data);
       } catch (error) {
         console.error("Error deleting berita:", error);
         alert("Gagal menghapus berita.");

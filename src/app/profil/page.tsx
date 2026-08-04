@@ -2,6 +2,7 @@ import Image from "next/image";
 import villageProfile from "@/data/village-profile.json";
 import SectionTitle from "@/components/ui/SectionTitle";
 import FadeIn from "@/components/ui/FadeIn";
+import StrukturChart from "@/components/ui/StrukturChart";
 
 export const metadata = {
   title: "Profil Desa",
@@ -43,7 +44,7 @@ export default function ProfilPage() {
               <h2 className="font-heading text-2xl font-bold text-foreground mb-2">Sambutan Kepala Desa</h2>
               <h3 className="text-primary font-medium mb-6">{villageProfile.structure[0].name}</h3>
               <div className="relative">
-                <span className="absolute -top-4 -left-4 text-6xl text-primary/20 font-heading">"</span>
+                <span className="absolute -top-4 -left-4 text-6xl text-primary/20 font-heading">&ldquo;</span>
                 <p className="text-muted text-lg leading-relaxed italic relative z-10 pl-6 border-l-4 border-primary">
                   {villageProfile.headGreeting}
                 </p>
@@ -74,7 +75,7 @@ export default function ProfilPage() {
                   Visi
                 </h3>
                 <p className="text-lg leading-relaxed font-medium">
-                  "{villageProfile.vision}"
+                  &ldquo;{villageProfile.vision}&rdquo;
                 </p>
               </div>
             </FadeIn>
@@ -103,21 +104,8 @@ export default function ProfilPage() {
         <section className="mb-12">
           <FadeIn>
             <SectionTitle title="Struktur Pemerintahan" centered />
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-              {villageProfile.structure.map((person, index) => (
-                <div key={index} className="bg-white rounded-2xl p-6 border border-border text-center shadow-sm hover:shadow-md transition-shadow group">
-                  <div className="relative w-32 h-32 mx-auto rounded-full overflow-hidden mb-4 border-4 border-section-bg group-hover:border-primary/20 transition-colors">
-                    <Image
-                      src={person.image}
-                      alt={person.name}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <h4 className="font-heading font-semibold text-lg text-foreground">{person.name}</h4>
-                  <p className="text-primary text-sm font-medium mt-1">{person.position}</p>
-                </div>
-              ))}
+            <div className="bg-white rounded-2xl p-8 border border-border shadow-sm">
+              <StrukturChart root={villageProfile.bagan} />
             </div>
           </FadeIn>
         </section>

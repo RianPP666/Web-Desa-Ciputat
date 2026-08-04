@@ -9,7 +9,7 @@
     "Melestarikan nilai-nilai budaya dan kearifan lokal."
   ],
   "headGreeting": "Selamat datang di website resmi Desa Ciputat. Kami berharap website ini dapat menjadi media informasi dan komunikasi yang efektif antara pemerintah desa dengan masyarakat, serta sebagai jendela informasi bagi dunia luar untuk mengenal lebih dekat potensi dan pesona Desa Ciputat.",
-  "structure": [
+"structure": [
     {
       "name": "Idris",
       "position": "Kepala Desa",
@@ -26,6 +26,23 @@
       "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=200&h=200"
     }
   ],
+  "bagan": {
+    "position": "Kepala Desa",
+    "name": "Idris",
+    "children": [
+      {
+        "position": "Sekretaris Desa",
+        "name": "Nia Rusnia, SE",
+        "children": [
+          { "position": "Kaur Tata Usaha & Umum", "name": "" },
+          { "position": "Kaur Keuangan", "name": "" }
+        ]
+      },
+      { "position": "Kasi Pemerintahan", "name": "Ahmad Yani" },
+      { "position": "Kasi Kesejahteraan", "name": "" },
+      { "position": "Kasi Pelayanan", "name": "" }
+    ]
+  },
   "demographics": {
     "total": 4829,
     "male": 1750,

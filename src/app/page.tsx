@@ -10,7 +10,17 @@ import FadeIn from "@/components/ui/FadeIn";
 import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 
-async function getLatestNews() {
+interface NewsItem {
+  id: string;
+  title: string;
+  excerpt: string;
+  date: string;
+  thumbnail: string;
+  slug: string;
+  category: string;
+}
+
+async function getLatestNews(): Promise<NewsItem[]> {
   try {
     const q = query(collection(db, "news"), orderBy("date", "desc"), limit(3));
     const querySnapshot = await getDocs(q);
@@ -25,7 +35,7 @@ async function getLatestNews() {
         slug: data.slug || doc.id,
         category: data.category || "Berita",
       };
-    }) as any[];
+    });
   } catch (error) {
     console.error("Error fetching latest news:", error);
     return [];
@@ -191,20 +201,6 @@ export default async function Home() {
             loading="lazy" 
             referrerPolicy="no-referrer-when-downgrade"
           ></iframe>
-        </div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl px-4 pointer-events-none">
-          <FadeIn className="bg-white/90 backdrop-blur-md p-8 rounded-3xl shadow-2xl text-center pointer-events-auto border border-white">
-            <h2 className="font-heading text-3xl font-bold text-foreground mb-4">Butuh Bantuan atau Informasi?</h2>
-            <p className="text-muted mb-8 max-w-lg mx-auto">
-              Kantor desa kami buka setiap hari kerja. Silakan kunjungi kami atau hubungi melalui kontak yang tersedia.
-            </p>
-            <Link 
-              href="/kontak"
-              className="inline-flex px-8 py-4 bg-primary text-white rounded-full font-medium hover:bg-secondary transition-all hover:scale-105 shadow-md items-center gap-2"
-            >
-              Hubungi Kami Sekarang
-            </Link>
-          </FadeIn>
         </div>
       </section>
     </>

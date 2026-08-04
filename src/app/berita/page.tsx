@@ -10,7 +10,17 @@ export const metadata = {
   description: "Kumpulan berita dan informasi terbaru seputar desa.",
 };
 
-async function getNews() {
+interface NewsItem {
+  id: string;
+  title: string;
+  excerpt: string;
+  date: string;
+  thumbnail: string;
+  slug: string;
+  category: string;
+}
+
+async function getNews(): Promise<NewsItem[]> {
   try {
     const q = query(collection(db, "news"), orderBy("date", "desc"));
     const querySnapshot = await getDocs(q);
@@ -25,7 +35,7 @@ async function getNews() {
         slug: data.slug || doc.id,
         category: data.category || "Berita",
       };
-    }) as any[];
+    });
   } catch (error) {
     console.error("Error fetching news:", error);
     return [];

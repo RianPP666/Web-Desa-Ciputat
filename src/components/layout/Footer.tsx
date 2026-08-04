@@ -44,13 +44,13 @@ export default function Footer() {
                 <Link href="/profil" className="hover:text-accent transition-colors">Profil Desa</Link>
               </li>
               <li>
-                <Link href="/layanan" className="hover:text-accent transition-colors">Layanan Publik</Link>
+                <Link href="/potensi" className="hover:text-accent transition-colors">Potensi Desa</Link>
+              </li>
+              <li>
+                <Link href="/umkm" className="hover:text-accent transition-colors">UMKM</Link>
               </li>
               <li>
                 <Link href="/berita" className="hover:text-accent transition-colors">Berita Terkini</Link>
-              </li>
-              <li>
-                <Link href="/download" className="hover:text-accent transition-colors">Unduh Dokumen</Link>
               </li>
             </ul>
           </div>

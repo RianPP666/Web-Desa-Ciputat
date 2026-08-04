@@ -5,6 +5,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft, Loader2, Upload } from "lucide-react";
 
 export default function TambahBerita() {
@@ -148,7 +149,7 @@ export default function TambahBerita() {
             <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-xl relative overflow-hidden group">
               {imagePreview ? (
                 <div className="absolute inset-0 w-full h-full">
-                  <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
+                  <Image src={imagePreview} alt="Preview" fill className="object-cover" sizes="100%" />
                   <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     <span className="text-white font-medium">Klik untuk mengubah foto</span>
                   </div>

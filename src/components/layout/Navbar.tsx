@@ -3,22 +3,31 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import settingsData from "@/data/settings.json";
 import Image from "next/image";
 
-const NAV_LINKS = [
+interface NavLink {
+  name: string;
+  path: string;
+  children?: { name: string; path: string }[];
+}
+
+const NAV_LINKS: NavLink[] = [
   { name: "Beranda", path: "/" },
   { name: "Profil Desa", path: "/profil" },
   { name: "Berita", path: "/berita" },
-  { name: "Kegiatan", path: "/kegiatan" },
   { name: "Galeri", path: "/galeri" },
-  { name: "Potensi Desa", path: "/potensi" },
-  { name: "Layanan", path: "/layanan" },
-  { name: "Download", path: "/download" },
-  { name: "Kontak", path: "/kontak" },
+  {
+    name: "Potensi & UMKM",
+    path: "/potensi",
+    children: [
+      { name: "Potensi Desa", path: "/potensi" },
+      { name: "UMKM", path: "/umkm" },
+    ],
+  },
 ];
 
 export default function Navbar() {
@@ -33,11 +42,6 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  // Close mobile menu when route changes
-  useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
 
   if (pathname.startsWith("/admin")) {
     return null;
@@ -68,6 +72,41 @@ export default function Navbar() {
           <nav className="hidden lg:flex items-center gap-6">
             {NAV_LINKS.map((link) => {
               const isActive = pathname === link.path;
+              if (link.children) {
+                return (
+                  <div key={link.name} className="relative group">
+                    <Link
+                      href={link.path}
+                      className={`flex items-center gap-1 text-sm font-medium transition-colors hover:text-primary ${
+                        isActive ? "text-primary font-semibold" : "text-foreground"
+                      }`}
+                    >
+                      {link.name}
+                      <ChevronDown size={14} className="transition-transform group-hover:rotate-180" />
+                    </Link>
+                    <div className="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                      <div className="bg-white shadow-lg border border-border rounded-xl py-2 min-w-[180px]">
+                        {link.children.map((child) => {
+                          const childActive = pathname === child.path;
+                          return (
+                            <Link
+                              key={child.path}
+                              href={child.path}
+                              className={`block px-4 py-2 text-sm transition-colors ${
+                                childActive
+                                  ? "text-primary font-semibold"
+                                  : "text-foreground hover:text-primary"
+                              }`}
+                            >
+                              {child.name}
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
               return (
                 <Link
                   key={link.path}
@@ -109,20 +148,35 @@ export default function Navbar() {
             className="absolute top-full left-0 w-full bg-white shadow-lg lg:hidden"
           >
             <div className="container-custom py-4 flex flex-col gap-4">
-              {NAV_LINKS.map((link) => {
-                const isActive = pathname === link.path;
-                return (
+              {NAV_LINKS.map((link) => (
+                <div key={link.name} className="flex flex-col gap-1">
                   <Link
-                    key={link.path}
                     href={link.path}
+                    onClick={() => setIsOpen(false)}
                     className={`block py-2 text-base font-medium transition-colors hover:text-primary ${
-                      isActive ? "text-primary font-semibold" : "text-foreground"
+                      pathname === link.path ? "text-primary font-semibold" : "text-foreground"
                     }`}
                   >
                     {link.name}
                   </Link>
-                );
-              })}
+                  {link.children && (
+                    <div className="flex flex-col gap-1 pl-4 border-l-2 border-border">
+                      {link.children.map((child) => (
+                        <Link
+                          key={child.path}
+                          href={child.path}
+                          onClick={() => setIsOpen(false)}
+                          className={`block py-1.5 text-sm transition-colors hover:text-primary ${
+                            pathname === child.path ? "text-primary font-semibold" : "text-muted"
+                          }`}
+                        >
+                          {child.name}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
           </motion.div>
         )}

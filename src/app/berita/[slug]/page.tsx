@@ -1,4 +1,4 @@
-import { collection, getDocs, query, doc, getDoc } from "firebase/firestore";
+import { collection, getDocs, doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -8,12 +8,22 @@ import { cache } from "react";
 
 export const revalidate = 60;
 
-const getNewsDetail = cache(async (id: string) => {
+interface NewsDetail {
+  id: string;
+  title: string;
+  excerpt?: string;
+  date: string;
+  content?: string;
+  image?: string;
+  category?: string;
+}
+
+const getNewsDetail = cache(async (id: string): Promise<NewsDetail | null> => {
   try {
     const docRef = doc(db, "news", id);
     const docSnap = await getDoc(docRef);
     if (!docSnap.exists()) return null;
-    return { id: docSnap.id, ...docSnap.data() } as any;
+    return { id: docSnap.id, ...docSnap.data() } as NewsDetail;
   } catch (error) {
     console.error("Error fetching news detail:", error);
     return null;

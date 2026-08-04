@@ -1,5 +1,4 @@
 import galleryData from "@/data/gallery.json";
-import SectionTitle from "@/components/ui/SectionTitle";
 import FadeIn from "@/components/ui/FadeIn";
 import Image from "next/image";
 

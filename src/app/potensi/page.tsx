@@ -1,5 +1,4 @@
 import potensiData from "@/data/potensi.json";
-import SectionTitle from "@/components/ui/SectionTitle";
 import PotensiCard from "@/components/cards/PotensiCard";
 import FadeIn from "@/components/ui/FadeIn";
 

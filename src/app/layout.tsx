@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Website Resmi Desa Ciputat",
     description: "Portal resmi informasi, layanan, dan potensi Desa Ciputat, Kecamatan Ciawigebang, Kabupaten Kuningan, Jawa Barat.",
-    url: "/",
+    url: "https://desaciputat.devzonee.my.id",
     siteName: "Pemerintah Desa Ciputat",
     locale: "id_ID",
     type: "website",

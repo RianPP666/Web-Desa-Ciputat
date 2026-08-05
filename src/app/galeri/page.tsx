@@ -6,14 +6,14 @@ import FadeIn from "@/components/ui/FadeIn";
 import Image from "next/image";
 
 // Ambil semua kategori unik dari data galeri
-const categories = ["Semua", ...Array.from(new Set(galleryData.map(item => item.category)))];
+const categories = ["Semua", ...Array.from(new Set((galleryData as any[]).map(item => item.category)))];
 
 export default function GaleriPage() {
   const [activeCategory, setActiveCategory] = useState("Semua");
 
   const filteredData = activeCategory === "Semua"
-    ? galleryData
-    : galleryData.filter(item => item.category === activeCategory);
+    ? (galleryData as any[])
+    : (galleryData as any[]).filter(item => item.category === activeCategory);
 
   return (
     <div className="pt-24 pb-20">

@@ -28,7 +28,7 @@ export default function UmkmPage() {
           <p className="text-muted text-center py-16">Belum ada data UMKM.</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {umkmData.map((item, index) => (
+            {(umkmData as any[]).map((item, index) => (
               <FadeIn key={item.id} delay={index * 0.1}>
                 <UmkmCard {...item} />
               </FadeIn>

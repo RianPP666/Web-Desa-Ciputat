@@ -1,64 +1,51 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { collection, getDocs, deleteDoc, doc, orderBy, query } from "firebase/firestore";
-import { db } from "@/lib/firebase";
+import { useState } from "react";
+import newsData from "@/data/news.json";
 import Link from "next/link";
-import { Plus, Trash2, Loader2 } from "lucide-react";
+import { Plus, Trash2, Pencil } from "lucide-react";
 import Image from "next/image";
+import Swal from "sweetalert2";
 
 interface BeritaItem {
   id: string;
   title: string;
   date: string;
-  image?: string;
+  thumbnail?: string;
   excerpt?: string;
 }
 
 export default function KelolaBerita() {
-  const [berita, setBerita] = useState<BeritaItem[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  const fetchBerita = useCallback(async (): Promise<BeritaItem[]> => {
-    const q = query(collection(db, "news"), orderBy("date", "desc"));
-    const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    })) as BeritaItem[];
-  }, []);
-
-  useEffect(() => {
-    let active = true;
-    fetchBerita()
-      .then(data => {
-        if (active) setBerita(data);
-      })
-      .catch(error => console.error("Error fetching berita:", error))
-      .finally(() => {
-        if (active) setLoading(false);
-      });
-    return () => {
-      active = false;
-    };
-  }, [fetchBerita]);
+  const [berita, setBerita] = useState<BeritaItem[]>(newsData as BeritaItem[]);
 
   const handleDelete = async (id: string) => {
-    if (window.confirm("Apakah Anda yakin ingin menghapus berita ini?")) {
+    const result = await Swal.fire({
+      title: 'Apakah Anda yakin?',
+      text: "Berita yang dihapus tidak dapat dikembalikan!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#ef4444',
+      cancelButtonColor: '#9ca3af',
+      confirmButtonText: 'Ya, hapus!',
+      cancelButtonText: 'Batal'
+    });
+
+    if (result.isConfirmed) {
       try {
-        await deleteDoc(doc(db, "news", id));
-        const data = await fetchBerita();
-        setBerita(data);
+        const response = await fetch(`/api/berita?id=${id}`, {
+          method: 'DELETE',
+        });
+        
+        if (!response.ok) throw new Error('Gagal menghapus berita');
+        
+        setBerita(berita.filter((item) => item.id !== id));
+        Swal.fire('Terhapus!', 'Berita berhasil dihapus.', 'success');
       } catch (error) {
         console.error("Error deleting berita:", error);
-        alert("Gagal menghapus berita.");
+        Swal.fire('Error!', 'Gagal menghapus berita.', 'error');
       }
     }
   };
-
-  if (loading) {
-    return <div className="flex justify-center p-12"><Loader2 className="w-8 h-8 animate-spin text-primary" /></div>;
-  }
 
   return (
     <div>
@@ -95,15 +82,22 @@ export default function KelolaBerita() {
                 <tr key={item.id} className="border-b border-gray-50 hover:bg-gray-50 transition-colors">
                   <td className="p-4">
                     <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-gray-200">
-                      {item.image && (
-                        <Image src={item.image} alt={item.title} fill className="object-cover" />
+                      {item.thumbnail && (
+                        <Image src={item.thumbnail} alt={item.title} fill className="object-cover" />
                       )}
                     </div>
                   </td>
                   <td className="p-4 font-medium text-gray-900">{item.title}</td>
                   <td className="p-4 text-gray-500">{item.date}</td>
                   <td className="p-4">
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2">
+                      <Link 
+                        href={`/admin/berita/edit/${item.id}`}
+                        className="p-2 text-blue-500 hover:bg-blue-50 rounded-lg transition-colors"
+                        title="Edit"
+                      >
+                        <Pencil size={18} />
+                      </Link>
                       <button 
                         onClick={() => handleDelete(item.id)}
                         className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"

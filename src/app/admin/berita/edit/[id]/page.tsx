@@ -1,30 +1,54 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "@/lib/firebase";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, Loader2, Upload } from "lucide-react";
 import Swal from "sweetalert2";
+import newsData from "@/data/news.json";
 
-export default function TambahBerita() {
+export default function EditBerita() {
   const router = useRouter();
+  const params = useParams();
+  const id = params.id as string;
+  
   const [loading, setLoading] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>("");
+  const [existingImage, setExistingImage] = useState<string>("");
   
   const [formData, setFormData] = useState({
     title: "",
     excerpt: "",
     content: "",
-    date: new Date().toISOString().split('T')[0] // YYYY-MM-DD
+    date: ""
   });
 
   useEffect(() => {
+    // Find the news item
+    const item = newsData.find((news) => news.id === id);
+    if (item) {
+      setFormData({
+        title: item.title || "",
+        excerpt: item.excerpt || "",
+        content: item.content || "",
+        date: item.date || new Date().toISOString().split('T')[0]
+      });
+      if (item.thumbnail) {
+        setExistingImage(item.thumbnail);
+        setImagePreview(item.thumbnail);
+      }
+    } else {
+      Swal.fire('Error', 'Data tidak ditemukan', 'error');
+      router.push('/admin/berita');
+    }
+  }, [id, router]);
+
+  useEffect(() => {
     return () => {
-      if (imagePreview) {
+      // Only revoke if it's a blob URL
+      if (imagePreview && imagePreview.startsWith('blob:')) {
         URL.revokeObjectURL(imagePreview);
       }
     };
@@ -41,7 +65,6 @@ export default function TambahBerita() {
   const uploadImage = async (file: File) => {
     const formData = new FormData();
     formData.append("file", file);
-    // Kita gunakan ml_default sesuai dengan yang Anda edit tadi
     formData.append("upload_preset", process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "desaciputat");
     
     const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "hm7i9lin";
@@ -52,7 +75,6 @@ export default function TambahBerita() {
     });
     
     const data = await response.json();
-    console.log("Upload response:", data);
     
     if (data.secure_url) {
       return data.secure_url;
@@ -65,28 +87,21 @@ export default function TambahBerita() {
     setLoading(true);
 
     try {
-      let imageUrl = "";
+      let imageUrl = existingImage;
       
+      // Only upload if a new file was selected
       if (imageFile) {
-        // Upload image to ImgBB first
         imageUrl = await uploadImage(imageFile);
-      } else {
-        Swal.fire({
-          icon: 'warning',
-          title: 'Peringatan',
-          text: 'Mohon pilih gambar untuk berita ini.'
-        });
-        setLoading(false);
-        return;
-      }
+      } 
 
-      // Save to JSON via API Route
+      // Save to JSON via API Route (PUT)
       const response = await fetch('/api/berita', {
-        method: 'POST',
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          id: id,
           title: formData.title,
           excerpt: formData.excerpt,
           content: formData.content,
@@ -103,17 +118,17 @@ export default function TambahBerita() {
       await Swal.fire({
         icon: 'success',
         title: 'Berhasil!',
-        text: 'Berita berhasil disimpan!',
+        text: 'Berita berhasil diperbarui!',
         timer: 1500,
         showConfirmButton: false
       });
       router.push("/admin/berita");
     } catch (error) {
-      console.error("Error adding document: ", error);
+      console.error("Error updating document: ", error);
       Swal.fire({
         icon: 'error',
         title: 'Gagal',
-        text: 'Terjadi kesalahan saat menyimpan berita.'
+        text: 'Terjadi kesalahan saat memperbarui berita.'
       });
     } finally {
       setLoading(false);
@@ -126,7 +141,7 @@ export default function TambahBerita() {
         <Link href="/admin/berita" className="p-2 hover:bg-gray-200 rounded-full transition-colors">
           <ArrowLeft size={24} />
         </Link>
-        <h1 className="text-3xl font-bold text-gray-900">Tambah Berita Baru</h1>
+        <h1 className="text-3xl font-bold text-gray-900">Edit Berita</h1>
       </div>
 
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
@@ -200,6 +215,7 @@ export default function TambahBerita() {
                 required={!imagePreview}
               />
             </div>
+            <p className="text-xs text-gray-500 mt-2">*Biarkan jika Anda tidak ingin mengubah gambar</p>
           </div>
 
           <div>
@@ -221,7 +237,7 @@ export default function TambahBerita() {
               disabled={loading}
               className="flex items-center gap-2 bg-primary text-white px-8 py-3 rounded-xl font-medium hover:bg-primary/90 transition-colors disabled:opacity-70"
             >
-              {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Simpan & Publikasikan"}
+              {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Simpan Perubahan"}
             </button>
           </div>
         </form>

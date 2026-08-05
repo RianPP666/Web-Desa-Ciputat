@@ -1,21 +1,24 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "@/lib/firebase";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Loader2, Upload } from "lucide-react";
 import Image from "next/image";
 import Swal from "sweetalert2";
+import umkmData from "@/data/umkm.json";
 
 const CATEGORIES = ["Kuliner", "Kerajinan", "Fashion", "Pertanian", "Peternakan", "Jasa", "Lainnya"];
 
-export default function TambahUmkm() {
+export default function EditUmkm() {
   const router = useRouter();
+  const params = useParams();
+  const id = params.id as string;
+
   const [loading, setLoading] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>("");
+  const [existingImage, setExistingImage] = useState<string>("");
 
   const [formData, setFormData] = useState({
     name: "",
@@ -28,8 +31,32 @@ export default function TambahUmkm() {
   });
 
   useEffect(() => {
+    // Cari data UMKM yang akan diedit
+    const item = umkmData.find((u) => u.id === id);
+    if (item) {
+      setFormData({
+        name: item.name || "",
+        product: item.product || "",
+        category: item.category || "Kuliner",
+        price: item.price || "",
+        location: item.location || "",
+        phone: item.phone || "",
+        description: (item as any).description || "",
+      });
+      if (item.image || (item as any).url) {
+        const url = item.image || (item as any).url;
+        setExistingImage(url);
+        setImagePreview(url);
+      }
+    } else {
+      Swal.fire('Error', 'Data UMKM tidak ditemukan', 'error');
+      router.push('/admin/umkm');
+    }
+  }, [id, router]);
+
+  useEffect(() => {
     return () => {
-      if (imagePreview) {
+      if (imagePreview && imagePreview.startsWith('blob:')) {
         URL.revokeObjectURL(imagePreview);
       }
     };
@@ -68,30 +95,22 @@ export default function TambahUmkm() {
     setLoading(true);
 
     try {
-      let imageUrl = "";
+      let imageUrl = existingImage;
       
       if (imageFile) {
         imageUrl = await uploadImage(imageFile);
-      } else {
-        Swal.fire({
-          icon: 'warning',
-          title: 'Peringatan',
-          text: 'Mohon pilih gambar untuk UMKM ini.'
-        });
-        setLoading(false);
-        return;
-      }
+      } 
 
-      // Save to JSON via API route
+      // Save to JSON via API route using PUT
       const response = await fetch('/api/umkm', {
-        method: 'POST',
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          id: id,
           ...formData,
           image: imageUrl,
-          createdAt: new Date().toISOString()
         }),
       });
 
@@ -102,17 +121,17 @@ export default function TambahUmkm() {
       await Swal.fire({
         icon: 'success',
         title: 'Berhasil!',
-        text: 'Berhasil menyimpan data UMKM!',
+        text: 'Data UMKM berhasil diperbarui!',
         timer: 1500,
         showConfirmButton: false
       });
       router.push("/admin/umkm");
     } catch (error) {
-      console.error("Error adding document: ", error);
+      console.error("Error updating document: ", error);
       Swal.fire({
         icon: 'error',
         title: 'Gagal',
-        text: 'Terjadi kesalahan saat menyimpan UMKM.'
+        text: 'Terjadi kesalahan saat memperbarui UMKM.'
       });
     } finally {
       setLoading(false);
@@ -128,7 +147,7 @@ export default function TambahUmkm() {
         <Link href="/admin/umkm" className="p-2 hover:bg-gray-200 rounded-full transition-colors">
           <ArrowLeft size={24} />
         </Link>
-        <h1 className="text-3xl font-bold text-gray-900">Tambah UMKM</h1>
+        <h1 className="text-3xl font-bold text-gray-900">Edit UMKM</h1>
       </div>
 
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
@@ -186,6 +205,7 @@ export default function TambahUmkm() {
                 required={!imagePreview}
               />
             </div>
+            <p className="text-xs text-gray-500 mt-2">*Biarkan jika Anda tidak ingin mengubah gambar</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -220,7 +240,7 @@ export default function TambahUmkm() {
           <div className="flex justify-end pt-4">
             <button type="submit" disabled={loading}
               className="flex items-center gap-2 bg-primary text-white px-8 py-3 rounded-xl font-medium hover:bg-primary/90 transition-colors disabled:opacity-70">
-              {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Simpan UMKM"}
+              {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Simpan Perubahan"}
             </button>
           </div>
         </form>

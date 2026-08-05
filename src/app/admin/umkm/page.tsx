@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { collection, getDocs, deleteDoc, doc, query, orderBy } from "firebase/firestore";
-import { db } from "@/lib/firebase";
+import { useState } from "react";
+import umkmData from "@/data/umkm.json";
 import Link from "next/link";
-import { Plus, Trash2, Loader2, MapPin, Phone } from "lucide-react";
+import { Plus, Trash2, Pencil, MapPin, Phone } from "lucide-react";
+import Swal from "sweetalert2";
 
 interface UmkmItem {
   id: string;
@@ -17,49 +17,36 @@ interface UmkmItem {
 }
 
 export default function KelolaUmkm() {
-  const [umkm, setUmkm] = useState<UmkmItem[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  const fetchUmkm = useCallback(async (): Promise<UmkmItem[]> => {
-    const q = query(collection(db, "umkm"), orderBy("name"));
-    const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    })) as UmkmItem[];
-  }, []);
-
-  useEffect(() => {
-    let active = true;
-    fetchUmkm()
-      .then(data => {
-        if (active) setUmkm(data);
-      })
-      .catch(error => console.error("Error fetching umkm:", error))
-      .finally(() => {
-        if (active) setLoading(false);
-      });
-    return () => {
-      active = false;
-    };
-  }, [fetchUmkm]);
+  const [umkm, setUmkm] = useState<UmkmItem[]>(umkmData as UmkmItem[]);
 
   const handleDelete = async (id: string) => {
-    if (window.confirm("Apakah Anda yakin ingin menghapus UMKM ini?")) {
+    const result = await Swal.fire({
+      title: 'Apakah Anda yakin?',
+      text: "Data UMKM yang dihapus tidak dapat dikembalikan!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#ef4444',
+      cancelButtonColor: '#9ca3af',
+      confirmButtonText: 'Ya, hapus!',
+      cancelButtonText: 'Batal'
+    });
+
+    if (result.isConfirmed) {
       try {
-        await deleteDoc(doc(db, "umkm", id));
-        const data = await fetchUmkm();
-        setUmkm(data);
+        const response = await fetch(`/api/umkm?id=${id}`, {
+          method: 'DELETE',
+        });
+        
+        if (!response.ok) throw new Error('Gagal menghapus UMKM');
+        
+        setUmkm(umkm.filter((item) => item.id !== id));
+        Swal.fire('Terhapus!', 'Data UMKM berhasil dihapus.', 'success');
       } catch (error) {
         console.error("Error deleting umkm:", error);
-        alert("Gagal menghapus UMKM.");
+        Swal.fire('Error!', 'Gagal menghapus UMKM.', 'error');
       }
     }
   };
-
-  if (loading) {
-    return <div className="flex justify-center p-12"><Loader2 className="w-8 h-8 animate-spin text-primary" /></div>;
-  }
 
   return (
     <div>
@@ -83,14 +70,23 @@ export default function KelolaUmkm() {
           umkm.map((item) => (
             <div key={item.id} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 relative group">
               <div className="flex justify-between items-start mb-3">
-                <h3 className="font-heading font-semibold text-lg text-gray-900 line-clamp-1 pr-8">{item.name}</h3>
-                <button
-                  onClick={() => handleDelete(item.id)}
-                  className="absolute top-4 right-4 p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100"
-                  title="Hapus"
-                >
-                  <Trash2 size={18} />
-                </button>
+                <h3 className="font-heading font-semibold text-lg text-gray-900 line-clamp-1 pr-16">{item.name}</h3>
+                <div className="absolute top-4 right-4 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <Link
+                    href={`/admin/umkm/edit/${item.id}`}
+                    className="p-2 text-gray-400 hover:text-blue-500 hover:bg-blue-50 rounded-lg transition-colors"
+                    title="Edit"
+                  >
+                    <Pencil size={18} />
+                  </Link>
+                  <button
+                    onClick={() => handleDelete(item.id)}
+                    className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                    title="Hapus"
+                  >
+                    <Trash2 size={18} />
+                  </button>
+                </div>
               </div>
               <p className="text-primary font-medium text-sm mb-2">{item.product}</p>
               <span className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">

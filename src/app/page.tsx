@@ -3,49 +3,14 @@ import Image from "next/image";
 import { ArrowRight, Users, Home as HomeIcon, Map, TreePine } from "lucide-react";
 import settingsData from "@/data/settings.json";
 import potensiData from "@/data/potensi.json";
+import newsData from "@/data/news.json";
 import SectionTitle from "@/components/ui/SectionTitle";
 import NewsCard from "@/components/cards/NewsCard";
 import PotensiCard from "@/components/cards/PotensiCard";
 import FadeIn from "@/components/ui/FadeIn";
-import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
-import { db } from "@/lib/firebase";
 
-interface NewsItem {
-  id: string;
-  title: string;
-  excerpt: string;
-  date: string;
-  thumbnail: string;
-  slug: string;
-  category: string;
-}
-
-async function getLatestNews(): Promise<NewsItem[]> {
-  try {
-    const q = query(collection(db, "news"), orderBy("date", "desc"), limit(3));
-    const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map(doc => {
-      const data = doc.data();
-      return {
-        id: doc.id,
-        title: data.title || "Tanpa Judul",
-        excerpt: data.excerpt || "",
-        date: data.date || new Date().toISOString(),
-        thumbnail: data.image || "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=600&h=400",
-        slug: data.slug || doc.id,
-        category: data.category || "Berita",
-      };
-    });
-  } catch (error) {
-    console.error("Error fetching latest news:", error);
-    return [];
-  }
-}
-
-export const revalidate = 60; // ISR 60 seconds
-
-export default async function Home() {
-  const latestNews = await getLatestNews();
+export default function Home() {
+  const latestNews = newsData.slice(0, 3);
   const topPotensi = potensiData.slice(0, 3);
 
   return (

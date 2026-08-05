@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Plus, Trash2, Image as ImageIcon } from "lucide-react";
+import { Plus, Trash2, Pencil, Image as ImageIcon } from "lucide-react";
 import Image from "next/image";
+import Swal from "sweetalert2";
 // Kita import dari json untuk sementara menampilkan data mockup
 import galleryData from "@/data/gallery.json";
 
@@ -18,14 +19,35 @@ export default function KelolaGaleri() {
   const [items, setItems] = useState<GalleryItem[]>([]);
 
   useEffect(() => {
-    // Memuat data dari JSON statis sebagai mockup awal
     setItems(galleryData);
   }, []);
 
-  const handleDelete = (id: string) => {
-    if (window.confirm("Apakah Anda yakin ingin menghapus foto ini? (Mockup: Data statis tidak akan terhapus permanen)")) {
-      setItems(items.filter(item => item.id !== id));
-      alert("Foto berhasil dihapus dari tampilan (Mockup).");
+  const handleDelete = async (id: string) => {
+    const result = await Swal.fire({
+      title: 'Apakah Anda yakin?',
+      text: "Foto galeri yang dihapus tidak dapat dikembalikan!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#ef4444',
+      cancelButtonColor: '#9ca3af',
+      confirmButtonText: 'Ya, hapus!',
+      cancelButtonText: 'Batal'
+    });
+
+    if (result.isConfirmed) {
+      try {
+        const response = await fetch(`/api/galeri?id=${id}`, {
+          method: 'DELETE',
+        });
+        
+        if (!response.ok) throw new Error('Gagal menghapus foto galeri');
+        
+        setItems(items.filter(item => item.id !== id));
+        Swal.fire('Terhapus!', 'Foto galeri berhasil dihapus.', 'success');
+      } catch (error) {
+        console.error("Error deleting galeri:", error);
+        Swal.fire('Error!', 'Gagal menghapus foto galeri.', 'error');
+      }
     }
   };
 
@@ -40,10 +62,6 @@ export default function KelolaGaleri() {
           <Plus size={20} />
           Tambah Foto
         </Link>
-      </div>
-
-      <div className="bg-yellow-50 border border-yellow-200 text-yellow-800 p-4 rounded-xl mb-6 text-sm">
-        <strong>Peringatan Mode Statis:</strong> Halaman ini saat ini berjalan dalam mode Mockup (tanpa database Firebase). Anda bisa melihat dan berinteraksi dengan antarmuka ini, tetapi perubahan data tidak akan tersimpan secara permanen. Untuk sementara, tambahkan foto secara statis melalui folder <code>public/images/galeri</code> dan file <code>src/data/gallery.json</code>.
       </div>
 
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
@@ -82,7 +100,14 @@ export default function KelolaGaleri() {
                     </span>
                   </td>
                   <td className="p-4">
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2">
+                      <Link 
+                        href={`/admin/galeri/edit/${item.id}`}
+                        className="p-2 text-blue-500 hover:bg-blue-50 rounded-lg transition-colors"
+                        title="Edit"
+                      >
+                        <Pencil size={18} />
+                      </Link>
                       <button 
                         onClick={() => handleDelete(item.id)}
                         className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"

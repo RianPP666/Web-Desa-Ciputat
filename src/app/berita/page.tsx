@@ -2,50 +2,14 @@ import SectionTitle from "@/components/ui/SectionTitle";
 import NewsCard from "@/components/cards/NewsCard";
 import FadeIn from "@/components/ui/FadeIn";
 import { Search } from "lucide-react";
-import { collection, getDocs, query, orderBy } from "firebase/firestore";
-import { db } from "@/lib/firebase";
+import newsData from "@/data/news.json";
 
 export const metadata = {
   title: "Berita",
   description: "Kumpulan berita dan informasi terbaru seputar desa.",
 };
 
-interface NewsItem {
-  id: string;
-  title: string;
-  excerpt: string;
-  date: string;
-  thumbnail: string;
-  slug: string;
-  category: string;
-}
-
-async function getNews(): Promise<NewsItem[]> {
-  try {
-    const q = query(collection(db, "news"), orderBy("date", "desc"));
-    const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map(doc => {
-      const data = doc.data();
-      return {
-        id: doc.id,
-        title: data.title || "Tanpa Judul",
-        excerpt: data.excerpt || "",
-        date: data.date || new Date().toISOString(),
-        thumbnail: data.image || "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=600&h=400",
-        slug: data.slug || doc.id,
-        category: data.category || "Berita",
-      };
-    });
-  } catch (error) {
-    console.error("Error fetching news:", error);
-    return [];
-  }
-}
-
-export const revalidate = 60; // Revalidate every 60 seconds (ISR)
-
-export default async function BeritaPage() {
-  const newsData = await getNews();
+export default function BeritaPage() {
 
   return (
     <div className="pt-24 pb-20">

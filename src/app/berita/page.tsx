@@ -85,11 +85,13 @@ export default async function BeritaPage() {
         </div>
 
         {/* Pagination Dummy */}
-        <div className="flex justify-center mt-12 gap-2">
-          <button className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-medium">1</button>
-          <button className="w-10 h-10 rounded-full bg-white border border-border text-foreground hover:bg-gray-50 flex items-center justify-center font-medium transition-colors">2</button>
-          <button className="w-10 h-10 rounded-full bg-white border border-border text-foreground hover:bg-gray-50 flex items-center justify-center font-medium transition-colors">3</button>
-        </div>
+        {newsData.length > 9 && (
+          <div className="flex justify-center mt-12 gap-2">
+            <button className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-medium">1</button>
+            <button className="w-10 h-10 rounded-full bg-white border border-border text-foreground hover:bg-gray-50 flex items-center justify-center font-medium transition-colors">2</button>
+            <button className="w-10 h-10 rounded-full bg-white border border-border text-foreground hover:bg-gray-50 flex items-center justify-center font-medium transition-colors">3</button>
+          </div>
+        )}
       </div>
     </div>
   );

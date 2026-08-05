@@ -25,7 +25,7 @@ export default function EditGaleri() {
 
   useEffect(() => {
     // Cari data Galeri
-    const item = galleryData.find((g) => g.id === id);
+    const item = (galleryData as any[]).find((g) => g.id === id);
     if (item) {
       setFormData({
         title: item.title || "",

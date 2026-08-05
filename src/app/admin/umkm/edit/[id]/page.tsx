@@ -32,7 +32,7 @@ export default function EditUmkm() {
 
   useEffect(() => {
     // Cari data UMKM yang akan diedit
-    const item = umkmData.find((u) => u.id === id);
+    const item = (umkmData as any[]).find((u) => u.id === id);
     if (item) {
       setFormData({
         name: item.name || "",

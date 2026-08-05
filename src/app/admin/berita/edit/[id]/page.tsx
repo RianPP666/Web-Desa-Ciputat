@@ -27,7 +27,7 @@ export default function EditBerita() {
 
   useEffect(() => {
     // Find the news item
-    const item = newsData.find((news) => news.id === id);
+    const item = (newsData as any[]).find((news) => news.id === id);
     if (item) {
       setFormData({
         title: item.title || "",

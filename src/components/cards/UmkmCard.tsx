@@ -1,4 +1,4 @@
-import { MapPin, Phone, Store } from "lucide-react";
+import { MapPin, Phone, Store, AtSign, Globe } from "lucide-react";
 
 interface UmkmCardProps {
   name: string;
@@ -9,9 +9,13 @@ interface UmkmCardProps {
   location: string;
   phone?: string;
   description?: string;
+  instagram?: string;
+  facebook?: string;
 }
 
-export default function UmkmCard({ name, product, category, image, price, location, phone, description }: UmkmCardProps) {
+export default function UmkmCard({ 
+  name, product, category, image, price, location, phone, description, instagram, facebook 
+}: UmkmCardProps) {
   return (
     <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-border flex flex-col h-full">
       <div className="relative h-52 w-full overflow-hidden bg-gray-100">
@@ -31,6 +35,7 @@ export default function UmkmCard({ name, product, category, image, price, locati
       <div className="p-6 flex flex-col flex-grow">
         <h3 className="font-heading font-semibold text-xl text-gray-900 mb-1">{name}</h3>
         <p className="text-primary font-medium text-sm mb-3">{product}</p>
+        
         {description && (
           <p className="text-muted text-sm mb-4 line-clamp-3">{description}</p>
         )}
@@ -44,6 +49,7 @@ export default function UmkmCard({ name, product, category, image, price, locati
             <MapPin size={16} className="text-primary shrink-0" />
             <span>{location}</span>
           </div>
+          
           {phone && (
             <a
               href={`https://wa.me/${phone.replace(/\D/g, "")}`}
@@ -54,6 +60,25 @@ export default function UmkmCard({ name, product, category, image, price, locati
               <Phone size={16} className="text-primary shrink-0" />
               <span>{phone}</span>
             </a>
+          )}
+
+          {instagram && (
+            <a
+              href={`https://instagram.com/${instagram.replace("@", "")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-sm text-gray-600 hover:text-primary transition-colors"
+            >
+              <AtSign size={16} className="text-primary shrink-0" />
+              <span>{instagram}</span>
+            </a>
+          )}
+
+          {facebook && (
+            <div className="flex items-center gap-2 text-sm text-gray-600">
+              <Globe size={16} className="text-primary shrink-0" />
+              <span>{facebook}</span>
+            </div>
           )}
         </div>
       </div>

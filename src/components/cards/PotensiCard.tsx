@@ -3,13 +3,14 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 interface PotensiCardProps {
+  id: string;
   title: string;
   category: string;
   image: string;
   description: string;
 }
 
-export default function PotensiCard({ title, category, image, description }: PotensiCardProps) {
+export default function PotensiCard({ id, title, category, image, description }: PotensiCardProps) {
   return (
     <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-border group flex flex-col h-full">
       <div className="relative h-64 w-full overflow-hidden">
@@ -35,7 +36,7 @@ export default function PotensiCard({ title, category, image, description }: Pot
           {description}
         </p>
         <Link
-          href="/potensi"
+          href={`/potensi/${id}`}
           className="inline-flex items-center gap-2 text-primary font-medium hover:text-secondary transition-colors mt-auto"
         >
           Selengkapnya <ArrowRight size={16} />

@@ -169,7 +169,7 @@ export default async function Home() {
             />
           </FadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className={`grid grid-cols-1 gap-8 ${topPotensi.length === 1 ? 'md:grid-cols-1 max-w-md mx-auto' : 'md:grid-cols-3'}`}>
             {topPotensi.map((potensi, index) => (
               <FadeIn key={potensi.id} delay={index * 0.1}>
                 <PotensiCard {...potensi} />

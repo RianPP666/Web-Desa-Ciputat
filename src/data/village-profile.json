@@ -1,12 +1,18 @@
 {
   "history": "Desa Ciputat secara administrasi merupakan salah satu desa dalam wilayah kecamatan Ciawigebang Kabupaten Kuningan, dengan batas – batas wilayahnya yaitu sebelah utara berbatasan dengan Desa Ciawigebang, sebelah selatan berbatasan dengan Desa Kapandayan Pajawanlor, sebelah barat berbatasan dengan Desa Pangkalan, sebelah timur berbatasan dengan Desa Geresik. Luas wilayah seluruhnya adalah 124.920 Ha, dan berada pada ketinggian + 176 meter dengan iklim tropis dan secara administratif terdiri dari 05 RW dan 15 RT yang dibagi menjadi 05 Dusun.",
-  "vision": "Terwujudnya Desa Ciputat yang Mandiri, Sejahtera, dan Berbudaya Berlandaskan Semangat Gotong Royong.",
+  "vision": "Menata Desa Menuju Kemandirian, Kesejahteraan Dalam Kebersamaan Yang Beriman Dan Bertaqwa.",
   "mission": [
-    "Meningkatkan kualitas sumber daya manusia melalui pendidikan dan kesehatan.",
-    "Mengembangkan potensi ekonomi desa yang berbasis kerakyatan dan kearifan lokal.",
-    "Membangun infrastruktur desa yang memadai dan ramah lingkungan.",
-    "Meningkatkan kualitas pelayanan publik yang transparan dan akuntabel.",
-    "Melestarikan nilai-nilai budaya dan kearifan lokal."
+    "Mewujudkan masyarakat yang beriman, bertakwa, dan berakhlakul karimah.",
+    "Optimalisasi pelayanan umum yang berkeadilan bagi seluruh masyarakat.",
+    "Menyelenggarakan pemerintahan desa yang efisien, efektif, dan bersih dengan mengutamakan masyarakat.",
+    "Mewujudkan sumber daya aparatur desa yang profesional, dinamis, dan bermoral.",
+    "Mewujudkan harmonisasi antar kelembagaan yang ada sehingga terjalin sinergitas kerja yang profesional.",
+    "Meningkatkan sumber pendapatan pemerintahan dan pembangunan desa.",
+    "Mengembangkan perekonomian desa.",
+    "Meningkatkan pembangunan infrastruktur yang proporsional, berkualitas, dan berkelanjutan.",
+    "Meningkatkan pemberdayaan masyarakat menuju tertibnya partisipasi dan peran serta masyarakat dalam seluruh aspek pembangunan.",
+    "Mewujudkan kondisi desa yang aman, tertib, dan damai.",
+    "Menyediakan armada angkutan untuk kepentingan masyarakat."
   ],
   "headGreeting": "Selamat datang di website resmi Desa Ciputat. Kami berharap website ini dapat menjadi media informasi dan komunikasi yang efektif antara pemerintah desa dengan masyarakat, serta sebagai jendela informasi bagi dunia luar untuk mengenal lebih dekat potensi dan pesona Desa Ciputat.",
 "structure": [
@@ -19,28 +25,42 @@
       "name": "Nia Rusnia, SE",
       "position": "Sekretaris Desa",
       "image": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200&h=200"
-    },
-    {
-      "name": "Ahmad Yani",
-      "position": "Kasi Pemerintahan",
-      "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=200&h=200"
     }
   ],
   "bagan": {
     "position": "Kepala Desa",
-    "name": "Idris",
+    "name": "IDRIS",
+    "verticalChildren": true,
     "children": [
       {
-        "position": "Sekretaris Desa",
-        "name": "Nia Rusnia, SE",
+        "position": "HIDDEN",
+        "name": "",
         "children": [
-          { "position": "Kaur Tata Usaha & Umum", "name": "" },
-          { "position": "Kaur Keuangan", "name": "" }
+          {
+            "position": "Sekretaris Desa",
+            "name": "NIA RUSNIA, SE",
+            "children": [
+              { "position": "Kaur Keuangan", "name": "RIAN HERNAWAN" },
+              { "position": "Kaur Perencanaan", "name": "M. SOLIHIN YUSUP, ST" },
+              { "position": "Kaur Umum & TU", "name": "MOH. TAUPIK" }
+            ]
+          },
+          { "position": "Kasi Pemerintahan", "name": "YAYAT PRIYATNA" },
+          { "position": "Kasi Ekonomi & Pembangunan", "name": "IWAN SAMSUL ANWAR" },
+          { "position": "Kasi Kesra", "name": "NANANG SUNADI" }
         ]
       },
-      { "position": "Kasi Pemerintahan", "name": "Ahmad Yani" },
-      { "position": "Kasi Kesejahteraan", "name": "" },
-      { "position": "Kasi Pelayanan", "name": "" }
+      {
+        "position": "HIDDEN",
+        "name": "",
+        "children": [
+          { "position": "Kepala Dusun Manis", "name": "ARIS ISMAIL" },
+          { "position": "Kepala Dusun Pahing", "name": "ENANG ABDUL SALIM" },
+          { "position": "Kepala Dusun Puhun", "name": "UDIN JAHUDIN" },
+          { "position": "Kepala Dusun Wage", "name": "YOGI" },
+          { "position": "Kepala Dusun Kliwon", "name": "ENDIN SEPUDIN" }
+        ]
+      }
     ]
   },
   "demographics": {

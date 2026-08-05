@@ -22,7 +22,7 @@ export default function Footer() {
           <div className="flex flex-col gap-4">
             <Link href="/" className="flex items-center gap-3">
               <div className="w-12 h-12 relative rounded-full overflow-hidden shrink-0">
-                <Image src="/logo-kuningan.jpg" alt="Logo Desa Ciputat" fill className="object-cover" sizes="48px" />
+                <Image src="/logo-kuningan.png" alt="Logo Desa Ciputat" fill className="object-cover" sizes="48px" />
               </div>
               <div className="flex flex-col">
                 <span className="font-heading font-bold text-xl text-white leading-tight">

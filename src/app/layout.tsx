@@ -25,8 +25,8 @@ export const metadata: Metadata = {
   keywords: ["desa ciputat", "ciawigebang", "kuningan", "pemerintahan desa", "informasi desa", "layanan masyarakat", "potensi desa", "jawa barat"],
   authors: [{ name: "Pemerintah Desa Ciputat" }],
   icons: {
-    icon: "/logo-kuningan.jpg",
-    apple: "/logo-kuningan.jpg",
+    icon: "/logo-kuningan.png",
+    apple: "/logo-kuningan.png",
   },
   openGraph: {
     title: "Website Resmi Desa Ciputat",
@@ -35,13 +35,13 @@ export const metadata: Metadata = {
     siteName: "Pemerintah Desa Ciputat",
     locale: "id_ID",
     type: "website",
-    images: ["/logo-kuningan.jpg"],
+    images: ["/logo-kuningan.png"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Website Resmi Desa Ciputat",
     description: "Portal resmi informasi, layanan, dan potensi Desa Ciputat, Kecamatan Ciawigebang, Kabupaten Kuningan.",
-    images: ["/logo-kuningan.jpg"],
+    images: ["/logo-kuningan.png"],
   },
   robots: {
     index: true,

@@ -54,7 +54,7 @@ export default async function Home() {
       <section className="relative h-screen min-h-[600px] flex items-center justify-center pt-20">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/hero-desa.jpg"
+            src="/hero-desa.jpeg"
             alt="Pemandangan Desa Ciputat"
             fill
             className="object-cover"

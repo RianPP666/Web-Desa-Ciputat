@@ -1,13 +1,20 @@
+"use client";
+
+import { useState } from "react";
 import galleryData from "@/data/gallery.json";
 import FadeIn from "@/components/ui/FadeIn";
 import Image from "next/image";
 
-export const metadata = {
-  title: "Galeri",
-  description: "Dokumentasi foto dan video kegiatan desa.",
-};
+// Ambil semua kategori unik dari data galeri
+const categories = ["Semua", ...Array.from(new Set(galleryData.map(item => item.category)))];
 
 export default function GaleriPage() {
+  const [activeCategory, setActiveCategory] = useState("Semua");
+
+  const filteredData = activeCategory === "Semua"
+    ? galleryData
+    : galleryData.filter(item => item.category === activeCategory);
+
   return (
     <div className="pt-24 pb-20">
       <div className="bg-section-bg py-16 mb-16 border-b border-border">
@@ -24,16 +31,25 @@ export default function GaleriPage() {
       </div>
 
       <div className="container-custom">
-        {/* Filter Dummy */}
+        {/* Filter Kategori */}
         <FadeIn className="flex flex-wrap justify-center gap-3 mb-12">
-          <button className="px-6 py-2 bg-primary text-white rounded-full text-sm font-medium">Semua</button>
-          <button className="px-6 py-2 bg-white border border-border text-foreground hover:bg-gray-50 rounded-full text-sm font-medium transition-colors">Pemerintahan</button>
-          <button className="px-6 py-2 bg-white border border-border text-foreground hover:bg-gray-50 rounded-full text-sm font-medium transition-colors">Pembangunan</button>
-          <button className="px-6 py-2 bg-white border border-border text-foreground hover:bg-gray-50 rounded-full text-sm font-medium transition-colors">Kemasyarakatan</button>
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`px-6 py-2 rounded-full text-sm font-medium transition-colors ${
+                activeCategory === cat
+                  ? "bg-primary text-white"
+                  : "bg-white border border-border text-foreground hover:bg-gray-50"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
         </FadeIn>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {galleryData.map((item, index) => (
+          {filteredData.map((item, index) => (
             <FadeIn key={item.id} delay={index * 0.05} className="group relative aspect-square overflow-hidden rounded-xl bg-gray-100 cursor-pointer">
               <Image
                 src={item.url}
@@ -49,6 +65,12 @@ export default function GaleriPage() {
             </FadeIn>
           ))}
         </div>
+
+        {filteredData.length === 0 && (
+          <div className="text-center py-16 text-muted">
+            <p className="text-lg">Belum ada foto untuk kategori ini.</p>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -58,7 +58,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <div className="w-10 h-10 relative rounded-full overflow-hidden shrink-0">
-              <Image src="/logo-kuningan.jpg" alt="Logo Desa Ciputat" fill className="object-cover" sizes="40px" />
+              <Image src="/logo-kuningan.png" alt="Logo Desa Ciputat" fill className="object-cover" sizes="40px" />
             </div>
             <div className="flex flex-col">
               <span className="font-heading font-bold text-lg text-foreground leading-tight">

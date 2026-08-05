@@ -4,7 +4,7 @@ import { useState } from "react";
 import AuthGuard from "@/components/admin/AuthGuard";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { LayoutDashboard, Newspaper, Store, LogOut, Menu, X } from "lucide-react";
+import { LayoutDashboard, Newspaper, Store, LogOut, Menu, X, Image as ImageIcon } from "lucide-react";
 import { auth } from "@/lib/firebase";
 import { signOut } from "firebase/auth";
 
@@ -62,6 +62,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             >
               <Store size={20} />
               Kelola UMKM
+            </Link>
+            <Link 
+              href="/admin/galeri" 
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${pathname.startsWith('/admin/galeri') ? 'bg-primary/10 text-primary font-medium' : 'text-gray-600 hover:bg-gray-100'}`}
+            >
+              <ImageIcon size={20} />
+              Kelola Galeri
             </Link>
             {/* Add more menus later */}
           </nav>

@@ -6,7 +6,7 @@ import StrukturChart from "@/components/ui/StrukturChart";
 
 export const metadata = {
   title: "Profil Desa",
-  description: "Sejarah, Visi Misi, dan Struktur Organisasi Pemerintahan Desa.",
+  description: "Sejarah,  Misi, dan Struktur Organisasi Pemerintahan Desa.",
 };
 
 export default function ProfilPage() {

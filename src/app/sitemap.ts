@@ -1,6 +1,5 @@
 import { MetadataRoute } from 'next';
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
+import newsData from '@/data/news.json';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // GANTI URL INI DENGAN DOMAIN .my.id ANDA NANTINYA
@@ -9,19 +8,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   let newsUrls: MetadataRoute.Sitemap = [];
   try {
-    const querySnapshot = await getDocs(collection(db, "news"));
-    newsUrls = querySnapshot.docs.map((doc) => {
-      const data = doc.data();
-      const date = data.date ? new Date(data.date) : new Date();
+    newsUrls = newsData.map((news) => {
+      const date = news.date ? new Date(news.date) : new Date();
       return {
-        url: `${baseUrl}/berita/${doc.id}`,
+        url: `${baseUrl}/berita/${news.id}`,
         lastModified: date,
         changeFrequency: 'weekly',
         priority: 0.8,
       };
     });
   } catch (error) {
-    console.error("Error fetching news for sitemap:", error);
+    console.error("Error generating news sitemap:", error);
   }
 
   const staticUrls: MetadataRoute.Sitemap = [

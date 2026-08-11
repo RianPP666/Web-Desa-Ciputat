@@ -1,5 +1,68 @@
 [
   {
+    "id": "kegiatan-1786425087414-0",
+    "title": "BLT DD TAHAP 1 - 3",
+    "category": "Kegiatan Desa",
+    "type": "image",
+    "url": "/images/galeri/kegiatan-blt-dd-tahap-1-3.jpeg"
+  },
+  {
+    "id": "kegiatan-1786425087414-1",
+    "title": "Gedung Balai Desa",
+    "category": "Kegiatan Desa",
+    "type": "image",
+    "url": "/images/galeri/kegiatan-gedung-balai-desa.jpeg"
+  },
+  {
+    "id": "kegiatan-1786425087414-2",
+    "title": "GURU NGAJI",
+    "category": "Kegiatan Desa",
+    "type": "image",
+    "url": "/images/galeri/kegiatan-guru-ngaji.jpeg"
+  },
+  {
+    "id": "kegiatan-1786425087414-3",
+    "title": "Pemeliharan Irigasi",
+    "category": "Kegiatan Desa",
+    "type": "image",
+    "url": "/images/galeri/kegiatan-pemeliharan-irigasi.jpeg"
+  },
+  {
+    "id": "kegiatan-1786425087414-4",
+    "title": "Pengelolaan Sampah (Pengangkutan)",
+    "category": "Kegiatan Desa",
+    "type": "image",
+    "url": "/images/galeri/kegiatan-pengelolaan-sampang-pengangkutan.jpeg"
+  },
+  {
+    "id": "kegiatan-1786425087414-5",
+    "title": "PKK",
+    "category": "Kegiatan Desa",
+    "type": "image",
+    "url": "/images/galeri/kegiatan-pkk.jpeg"
+  },
+  {
+    "id": "kegiatan-1786425087414-6",
+    "title": "POSYANDU",
+    "category": "Kegiatan Desa",
+    "type": "image",
+    "url": "/images/galeri/kegiatan-posyandu.jpeg"
+  },
+  {
+    "id": "kegiatan-1786425087414-7",
+    "title": "Profil Desa",
+    "category": "Kegiatan Desa",
+    "type": "image",
+    "url": "/images/galeri/kegiatan-profil-desa.jpeg"
+  },
+  {
+    "id": "kegiatan-1786425087414-8",
+    "title": "RUTILAHU MANIS",
+    "category": "Kegiatan Desa",
+    "type": "image",
+    "url": "/images/galeri/kegiatan-rutilahu-manis.jpeg"
+  },
+  {
     "id": "1",
     "title": "SDN 1 Ciputat",
     "category": "Pendidikan",

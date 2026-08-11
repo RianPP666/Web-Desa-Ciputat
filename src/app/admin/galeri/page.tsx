@@ -7,6 +7,7 @@ import Image from "next/image";
 import Swal from "sweetalert2";
 // Kita import dari json untuk sementara menampilkan data mockup
 import galleryData from "@/data/gallery.json";
+import { authFetch } from '@/lib/auth-fetch';
 
 interface GalleryItem {
   id: string;
@@ -36,7 +37,7 @@ export default function KelolaGaleri() {
 
     if (result.isConfirmed) {
       try {
-        const response = await fetch(`/api/galeri?id=${id}`, {
+        const response = await authFetch(`/api/galeri?id=${id}`, {
           method: 'DELETE',
         });
         

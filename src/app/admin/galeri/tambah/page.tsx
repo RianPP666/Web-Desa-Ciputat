@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ArrowLeft, Loader2, Upload } from "lucide-react";
 import Image from "next/image";
 import Swal from "sweetalert2";
+import { authFetch } from '@/lib/auth-fetch';
 
 export default function TambahGaleri() {
   const router = useRouter();
@@ -65,7 +66,7 @@ export default function TambahGaleri() {
       const imageUrl = await uploadImage(imageFile);
       
       // Save data to JSON via API route
-      const response = await fetch('/api/galeri', {
+      const response = await authFetch('/api/galeri', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

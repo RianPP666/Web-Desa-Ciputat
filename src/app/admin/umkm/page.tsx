@@ -5,6 +5,7 @@ import umkmData from "@/data/umkm.json";
 import Link from "next/link";
 import { Plus, Trash2, Pencil, MapPin, Phone } from "lucide-react";
 import Swal from "sweetalert2";
+import { authFetch } from '@/lib/auth-fetch';
 
 interface UmkmItem {
   id: string;
@@ -33,7 +34,7 @@ export default function KelolaUmkm() {
 
     if (result.isConfirmed) {
       try {
-        const response = await fetch(`/api/umkm?id=${id}`, {
+        const response = await authFetch(`/api/umkm?id=${id}`, {
           method: 'DELETE',
         });
         

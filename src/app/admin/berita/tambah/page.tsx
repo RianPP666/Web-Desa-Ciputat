@@ -8,6 +8,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, Loader2, Upload } from "lucide-react";
 import Swal from "sweetalert2";
+import { authFetch } from '@/lib/auth-fetch';
 
 export default function TambahBerita() {
   const router = useRouter();
@@ -81,7 +82,7 @@ export default function TambahBerita() {
       }
 
       // Save to JSON via API Route
-      const response = await fetch('/api/berita', {
+      const response = await authFetch('/api/berita', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

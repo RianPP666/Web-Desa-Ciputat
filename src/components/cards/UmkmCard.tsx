@@ -1,4 +1,5 @@
 import { MapPin, Phone, Store, AtSign, Globe } from "lucide-react";
+import Image from "next/image";
 
 interface UmkmCardProps {
   name: string;
@@ -20,8 +21,9 @@ export default function UmkmCard({
     <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-border flex flex-col h-full">
       <div className="relative h-52 w-full overflow-hidden bg-gray-100">
         {image ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={image} alt={name} className="w-full h-full object-cover" />
+          <div className="relative w-full h-full">
+            <Image src={image} alt={name} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
+          </div>
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-primary/5 text-primary">
             <Store size={48} />

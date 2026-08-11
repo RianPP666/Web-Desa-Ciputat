@@ -7,6 +7,7 @@ import { ArrowLeft, Loader2, Upload } from "lucide-react";
 import Image from "next/image";
 import Swal from "sweetalert2";
 import umkmData from "@/data/umkm.json";
+import { authFetch } from '@/lib/auth-fetch';
 
 const CATEGORIES = ["Kuliner", "Kerajinan", "Fashion", "Pertanian", "Peternakan", "Jasa", "Lainnya"];
 
@@ -102,7 +103,7 @@ export default function EditUmkm() {
       } 
 
       // Save to JSON via API route using PUT
-      const response = await fetch('/api/umkm', {
+      const response = await authFetch('/api/umkm', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

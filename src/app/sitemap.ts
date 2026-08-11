@@ -8,7 +8,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   let newsUrls: MetadataRoute.Sitemap = [];
   try {
-    newsUrls = newsData.map((news) => {
+    newsUrls = (newsData as any[]).map((news) => {
       const date = news.date ? new Date(news.date) : new Date();
       return {
         url: `${baseUrl}/berita/${news.id}`,

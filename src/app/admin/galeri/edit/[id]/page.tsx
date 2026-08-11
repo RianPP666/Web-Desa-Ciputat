@@ -7,6 +7,7 @@ import { ArrowLeft, Loader2, Upload } from "lucide-react";
 import Image from "next/image";
 import Swal from "sweetalert2";
 import galleryData from "@/data/gallery.json";
+import { authFetch } from '@/lib/auth-fetch';
 
 export default function EditGaleri() {
   const router = useRouter();
@@ -81,7 +82,7 @@ export default function EditGaleri() {
       }
       
       // Save data to JSON via API route using PUT
-      const response = await fetch('/api/galeri', {
+      const response = await authFetch('/api/galeri', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

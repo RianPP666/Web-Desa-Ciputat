@@ -1,60 +1,48 @@
-import { collection, getDocs, doc, getDoc } from "firebase/firestore";
-import { db } from "@/lib/firebase";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft, Calendar } from "lucide-react";
 import FadeIn from "@/components/ui/FadeIn";
-import { cache } from "react";
+import newsData from "@/data/news.json";
 
-export const revalidate = 60;
-
-interface NewsDetail {
+interface NewsItem {
   id: string;
   title: string;
+  slug: string;
   excerpt?: string;
   date: string;
   content?: string;
-  image?: string;
+  thumbnail?: string;
   category?: string;
 }
 
-const getNewsDetail = cache(async (id: string): Promise<NewsDetail | null> => {
-  try {
-    const docRef = doc(db, "news", id);
-    const docSnap = await getDoc(docRef);
-    if (!docSnap.exists()) return null;
-    return { id: docSnap.id, ...docSnap.data() } as NewsDetail;
-  } catch (error) {
-    console.error("Error fetching news detail:", error);
-    return null;
-  }
-});
-
+// Generate static params from local JSON data
 export async function generateStaticParams() {
-  try {
-    const querySnapshot = await getDocs(collection(db, "news"));
-    return querySnapshot.docs.map((doc) => ({ slug: doc.id }));
-  } catch {
-    return [];
-  }
+  return (newsData as NewsItem[]).map((news) => ({
+    slug: news.slug || news.id,
+  }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const news = await getNewsDetail(slug);
+  const news = (newsData as NewsItem[]).find(
+    (n) => n.slug === slug || n.id === slug
+  );
   if (!news) return { title: "Berita Tidak Ditemukan" };
   return {
     title: news.title,
     description: news.excerpt || news.title,
     openGraph: {
-      images: news.image ? [news.image] : [],
+      images: news.thumbnail ? [news.thumbnail] : [],
     },
   };
 }
 
 export default async function BeritaDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const news = await getNewsDetail(slug);
+  const news = (newsData as NewsItem[]).find(
+    (n) => n.slug === slug || n.id === slug
+  );
 
   if (!news) {
     notFound();
@@ -107,15 +95,17 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ s
           </div>
         </FadeIn>
 
-        {/* Featured Image */}
-        {news.image && (
+        {/* Featured Image - Now using next/image (PERF-1) */}
+        {news.thumbnail && (
           <FadeIn delay={0.2}>
             <div className="relative w-full h-[300px] md:h-[450px] rounded-2xl overflow-hidden mb-10 shadow-lg">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={news.image}
+              <Image
+                src={news.thumbnail}
                 alt={news.title}
-                className="w-full h-full object-cover"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 800px"
+                priority
               />
             </div>
           </FadeIn>

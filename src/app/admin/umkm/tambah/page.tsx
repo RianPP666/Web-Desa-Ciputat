@@ -8,6 +8,7 @@ import Link from "next/link";
 import { ArrowLeft, Loader2, Upload } from "lucide-react";
 import Image from "next/image";
 import Swal from "sweetalert2";
+import { authFetch } from '@/lib/auth-fetch';
 
 const CATEGORIES = ["Kuliner", "Kerajinan", "Fashion", "Pertanian", "Peternakan", "Jasa", "Lainnya"];
 
@@ -83,7 +84,7 @@ export default function TambahUmkm() {
       }
 
       // Save to JSON via API route
-      const response = await fetch('/api/umkm', {
+      const response = await authFetch('/api/umkm', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

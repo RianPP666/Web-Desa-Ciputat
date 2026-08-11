@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Plus, Trash2, Pencil } from "lucide-react";
 import Image from "next/image";
 import Swal from "sweetalert2";
+import { authFetch } from '@/lib/auth-fetch';
 
 interface BeritaItem {
   id: string;
@@ -32,7 +33,7 @@ export default function KelolaBerita() {
 
     if (result.isConfirmed) {
       try {
-        const response = await fetch(`/api/berita?id=${id}`, {
+        const response = await authFetch(`/api/berita?id=${id}`, {
           method: 'DELETE',
         });
         

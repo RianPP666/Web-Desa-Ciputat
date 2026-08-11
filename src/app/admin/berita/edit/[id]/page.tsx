@@ -7,6 +7,7 @@ import Image from "next/image";
 import { ArrowLeft, Loader2, Upload } from "lucide-react";
 import Swal from "sweetalert2";
 import newsData from "@/data/news.json";
+import { authFetch } from '@/lib/auth-fetch';
 
 export default function EditBerita() {
   const router = useRouter();
@@ -95,7 +96,7 @@ export default function EditBerita() {
       } 
 
       // Save to JSON via API Route (PUT)
-      const response = await fetch('/api/berita', {
+      const response = await authFetch('/api/berita', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

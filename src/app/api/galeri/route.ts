@@ -1,10 +1,27 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { getAuthTokenFromHeader, sanitizeString, validateRequired, isValidImageUrl } from '@/lib/api-utils';
 
 export async function POST(request: Request) {
   try {
+    // SEC-1: Verifikasi autentikasi
+    const token = getAuthTokenFromHeader(request);
+    if (!token) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const data = await request.json();
+
+    // SEC-2: Validasi input
+    const validationError = validateRequired(data, ['title', 'category']);
+    if (validationError) {
+      return NextResponse.json({ error: validationError }, { status: 400 });
+    }
+
+    if (data.imageUrl && !isValidImageUrl(data.imageUrl)) {
+      return NextResponse.json({ error: 'URL gambar tidak valid' }, { status: 400 });
+    }
     
     // Path to the JSON file
     const filePath = path.join(process.cwd(), 'src', 'data', 'gallery.json');
@@ -13,11 +30,11 @@ export async function POST(request: Request) {
     const fileData = fs.readFileSync(filePath, 'utf8');
     const gallery = JSON.parse(fileData);
     
-    // Create new item
+    // Create new item with sanitized data
     const newItem = {
       id: Date.now().toString(),
-      title: data.title,
-      category: data.category,
+      title: sanitizeString(data.title, 200),
+      category: sanitizeString(data.category, 50),
       type: 'image',
       url: data.imageUrl
     };
@@ -37,7 +54,24 @@ export async function POST(request: Request) {
 
 export async function PUT(request: Request) {
   try {
+    // SEC-1: Verifikasi autentikasi
+    const token = getAuthTokenFromHeader(request);
+    if (!token) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const data = await request.json();
+
+    // SEC-2: Validasi input
+    const validationError = validateRequired(data, ['id', 'title', 'category']);
+    if (validationError) {
+      return NextResponse.json({ error: validationError }, { status: 400 });
+    }
+
+    if (data.imageUrl && !isValidImageUrl(data.imageUrl)) {
+      return NextResponse.json({ error: 'URL gambar tidak valid' }, { status: 400 });
+    }
+
     const filePath = path.join(process.cwd(), 'src', 'data', 'gallery.json');
     
     if (!fs.existsSync(filePath)) {
@@ -54,8 +88,8 @@ export async function PUT(request: Request) {
     
     list[index] = {
       ...list[index],
-      title: data.title,
-      category: data.category,
+      title: sanitizeString(data.title, 200),
+      category: sanitizeString(data.category, 50),
       url: data.imageUrl
     };
     
@@ -69,6 +103,12 @@ export async function PUT(request: Request) {
 
 export async function DELETE(request: Request) {
   try {
+    // SEC-1: Verifikasi autentikasi
+    const token = getAuthTokenFromHeader(request);
+    if (!token) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
     

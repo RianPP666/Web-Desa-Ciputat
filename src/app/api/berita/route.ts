@@ -1,11 +1,28 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { getAuthTokenFromHeader, sanitizeString, validateRequired, isValidImageUrl } from '@/lib/api-utils';
 
 export async function POST(request: Request) {
   try {
+    // SEC-1: Verifikasi autentikasi
+    const token = getAuthTokenFromHeader(request);
+    if (!token) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const data = await request.json();
     
+    // SEC-2: Validasi input
+    const validationError = validateRequired(data, ['title', 'excerpt', 'content', 'date']);
+    if (validationError) {
+      return NextResponse.json({ error: validationError }, { status: 400 });
+    }
+
+    if (data.image && !isValidImageUrl(data.image)) {
+      return NextResponse.json({ error: 'URL gambar tidak valid' }, { status: 400 });
+    }
+
     // Path to the JSON file
     const filePath = path.join(process.cwd(), 'src', 'data', 'news.json');
     
@@ -16,18 +33,19 @@ export async function POST(request: Request) {
       newsList = JSON.parse(fileData);
     }
     
-    // Create new item
-    const slug = data.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+    // Create new item with sanitized data
+    const title = sanitizeString(data.title, 200);
+    const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
     
     const newItem = {
       id: Date.now().toString(),
-      title: data.title,
+      title: title,
       slug: slug,
-      date: data.date,
-      category: data.category || "Berita",
+      date: sanitizeString(data.date, 20),
+      category: sanitizeString(data.category, 50) || "Berita",
       thumbnail: data.image,
-      excerpt: data.excerpt,
-      content: data.content
+      excerpt: sanitizeString(data.excerpt, 500),
+      content: sanitizeString(data.content)
     };
     
     // Add to the beginning of the array
@@ -45,7 +63,24 @@ export async function POST(request: Request) {
 
 export async function PUT(request: Request) {
   try {
+    // SEC-1: Verifikasi autentikasi
+    const token = getAuthTokenFromHeader(request);
+    if (!token) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const data = await request.json();
+
+    // SEC-2: Validasi input
+    const validationError = validateRequired(data, ['id', 'title', 'excerpt', 'content', 'date']);
+    if (validationError) {
+      return NextResponse.json({ error: validationError }, { status: 400 });
+    }
+
+    if (data.image && !isValidImageUrl(data.image)) {
+      return NextResponse.json({ error: 'URL gambar tidak valid' }, { status: 400 });
+    }
+
     const filePath = path.join(process.cwd(), 'src', 'data', 'news.json');
     
     if (!fs.existsSync(filePath)) {
@@ -60,17 +95,18 @@ export async function PUT(request: Request) {
       return NextResponse.json({ error: 'Item not found' }, { status: 404 });
     }
     
-    // Update fields
-    const slug = data.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+    // Update fields with sanitized data
+    const title = sanitizeString(data.title, 200);
+    const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
     newsList[index] = {
       ...newsList[index],
-      title: data.title,
+      title: title,
       slug: slug,
-      date: data.date,
-      category: data.category || "Berita",
+      date: sanitizeString(data.date, 20),
+      category: sanitizeString(data.category, 50) || "Berita",
       thumbnail: data.image,
-      excerpt: data.excerpt,
-      content: data.content
+      excerpt: sanitizeString(data.excerpt, 500),
+      content: sanitizeString(data.content)
     };
     
     fs.writeFileSync(filePath, JSON.stringify(newsList, null, 2));
@@ -83,6 +119,12 @@ export async function PUT(request: Request) {
 
 export async function DELETE(request: Request) {
   try {
+    // SEC-1: Verifikasi autentikasi
+    const token = getAuthTokenFromHeader(request);
+    if (!token) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
     
